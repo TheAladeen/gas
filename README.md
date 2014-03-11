@@ -19,18 +19,15 @@ While Golang modules are responsible for providing restful api to angularjs weba
 Using Sqlite for database mainly because it's simplicity, and should be more enough for me.
 
 
-## Install
+## Install - Linux & MacOS
 
 1. Nginx. Nginx is used for providing static resources, while restful requests were forwarded to 8080 port. Check out the conf file for nginx at data/nginx.conf.
 2. Golang.
-  1. Install Golang from http://www.golang.org
-  2. Setup GOROOT and GOPATH, for example, GOPATH could be set to /golang/ext/
-  3. Git clone the code to /golang/ext/src/github.com/featen/ags
-  4. Modify nginx conf for reflect the source dir above
-  5. Get golang modules
-    go get github.com/featen/utils/log
-    go get github.com/emicklei/go-restful
-    go get github.com/mattn/go-sqlite3  
-    go get github.com/gorilla/sessions  
+	Download tar.gz file and untar it to /golang/go.  in your ~/.bashrc
+	export GOROOT=/golang/go
+	export GOPATH= /golang/ext/
+3. go get github.com/featen/ags
+4. Modify nginx conf for reflect the source dir above and run nginx.
+5. go run app.go
 
 
