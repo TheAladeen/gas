@@ -2,7 +2,7 @@ package users
 
 import (
 	"database/sql"
-	log "featen/ags/modules/log"
+	log "github.com/featen/ags/modules/log"
 	"fmt"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/auth"
