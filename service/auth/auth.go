@@ -7,7 +7,7 @@ import (
 	"crypto/rand"
 	"database/sql"
 	"encoding/hex"
-	log "featen/ags/modules/log"
+	log "github.com/featen/ags/utils/log"
 	"fmt"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/config"
