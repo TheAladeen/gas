@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+    "math/rand"
 )
 
 type Comment struct {
@@ -259,29 +260,63 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
 		return nil, http.StatusBadRequest
 	}
 
-	//show latest deals only
+    //total deals count
+	querySql := fmt.Sprintf("select count(id) from product where status=2")
+	var n sql.NullInt64
+	err = dbHandler.QueryRow(querySql).Scan(&n)
+	if err != nil {
+		log.Debug("sql : %s", querySql)
+		log.Error("DB query failed: %v", err)
+		return nil, http.StatusInternalServerError
+	}
+
+	//random the deals
+    rand.Seed(time.Now().UTC().UnixNano())
+    dealnumbers := rand.Perm(int(n.Int64))
+    if n.Int64 >= pageDealsLimit {
+        dealnumbers = dealnumbers[:pageDealsLimit]
+    } else {
+        dealnumbers = dealnumbers[:n.Int64]
+    }
+
 	//offset := (pagenumber - 1) * pageDealsLimit
-	offset := 0
-	stmt, err := dbHandler.Prepare("SELECT id, nav_name, status, en_name, cn_name, cover_photo, price, discount FROM product WHERE status!=0 ORDER BY id desc limit ? offset ?")
+	stmt, err := dbHandler.Prepare("SELECT id, nav_name, status, en_name, cn_name, cover_photo, price, discount FROM product WHERE status!=0 ORDER BY id desc")
 	if err != nil {
 		log.Error("Prepare to get page deal failed : %v", err)
 		return nil, http.StatusInternalServerError
 	}
 	defer stmt.Close()
-	rows, err := stmt.Query(pageDealsLimit, offset)
+	rows, err := stmt.Query()
 	if err != nil {
 		log.Fatal("Query page deals failed: %v ", err)
 		return nil, http.StatusNotFound
 	}
 	defer rows.Close()
 
+    var number = 0
 	products := make([]Product, 0)
 	for rows.Next() {
+        if found := func() bool {
+            for _, j := range dealnumbers {
+                if j == number {
+                    return true
+                }
+            }
+            return false
+        }(); !found {
+            continue
+        }
+
 		var productId, status sql.NullInt64
 		var navName, enName, cnName, coverPhoto sql.NullString
 		var price, discount sql.NullFloat64
 		rows.Scan(&productId, &navName, &status, &enName, &cnName, &coverPhoto, &price, &discount)
 		products = append(products, Product{productId.Int64, navName.String, status.Int64, enName.String, cnName.String, coverPhoto.String, "", "", price.Float64, discount.Float64, nil, nil, nil, nil, nil, nil})
+
+        if len(products) == int(pageDealsLimit) {
+            break
+        }
+        number++
 	}
 	return products, http.StatusOK
 }
