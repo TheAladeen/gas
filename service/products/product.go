@@ -273,14 +273,12 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
 	//random the deals
     rand.Seed(time.Now().UTC().UnixNano())
     dealnumbers := rand.Perm(int(n.Int64))
-    if n.Int64 >= pageDealsLimit {
+    if n.Int64 > pageDealsLimit {
         dealnumbers = dealnumbers[:pageDealsLimit]
-    } else {
-        dealnumbers = dealnumbers[:n.Int64]
     }
 
 	//offset := (pagenumber - 1) * pageDealsLimit
-	stmt, err := dbHandler.Prepare("SELECT id, nav_name, status, en_name, cn_name, cover_photo, price, discount FROM product WHERE status!=0 ORDER BY id desc")
+	stmt, err := dbHandler.Prepare("SELECT id, nav_name, status, en_name, cn_name, cover_photo, price, discount FROM product WHERE status=2 ORDER BY id desc")
 	if err != nil {
 		log.Error("Prepare to get page deal failed : %v", err)
 		return nil, http.StatusInternalServerError
@@ -304,6 +302,7 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
             }
             return false
         }(); !found {
+        	number++
             continue
         }
 
