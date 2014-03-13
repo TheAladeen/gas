@@ -7,10 +7,10 @@ import (
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
 	log "github.com/featen/utils/log"
+	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
-    "math/rand"
 )
 
 type Comment struct {
@@ -260,7 +260,7 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
 		return nil, http.StatusBadRequest
 	}
 
-    //total deals count
+	//total deals count
 	querySql := fmt.Sprintf("select count(id) from product where status=2")
 	var n sql.NullInt64
 	err = dbHandler.QueryRow(querySql).Scan(&n)
@@ -271,11 +271,11 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
 	}
 
 	//random the deals
-    rand.Seed(time.Now().UTC().UnixNano())
-    dealnumbers := rand.Perm(int(n.Int64))
-    if n.Int64 > pageDealsLimit {
-        dealnumbers = dealnumbers[:pageDealsLimit]
-    }
+	rand.Seed(time.Now().UTC().UnixNano())
+	dealnumbers := rand.Perm(int(n.Int64))
+	if n.Int64 > pageDealsLimit {
+		dealnumbers = dealnumbers[:pageDealsLimit]
+	}
 
 	//offset := (pagenumber - 1) * pageDealsLimit
 	stmt, err := dbHandler.Prepare("SELECT id, nav_name, status, en_name, cn_name, cover_photo, price, discount FROM product WHERE status=2 ORDER BY id desc")
@@ -291,20 +291,20 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
 	}
 	defer rows.Close()
 
-    var number = 0
+	var number = 0
 	products := make([]Product, 0)
 	for rows.Next() {
-        if found := func() bool {
-            for _, j := range dealnumbers {
-                if j == number {
-                    return true
-                }
-            }
-            return false
-        }(); !found {
-        	number++
-            continue
-        }
+		if found := func() bool {
+			for _, j := range dealnumbers {
+				if j == number {
+					return true
+				}
+			}
+			return false
+		}(); !found {
+			number++
+			continue
+		}
 
 		var productId, status sql.NullInt64
 		var navName, enName, cnName, coverPhoto sql.NullString
@@ -312,10 +312,10 @@ func dbGetPageDeals(pagenumber int64) ([]Product, int) {
 		rows.Scan(&productId, &navName, &status, &enName, &cnName, &coverPhoto, &price, &discount)
 		products = append(products, Product{productId.Int64, navName.String, status.Int64, enName.String, cnName.String, coverPhoto.String, "", "", price.Float64, discount.Float64, nil, nil, nil, nil, nil, nil})
 
-        if len(products) == int(pageDealsLimit) {
-            break
-        }
-        number++
+		if len(products) == int(pageDealsLimit) {
+			break
+		}
+		number++
 	}
 	return products, http.StatusOK
 }
