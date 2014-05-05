@@ -78,7 +78,7 @@ func addAdminUser() {
 }
 
 func RegService() {
-	config.InitConfigs("data/ags.config")
+	config.InitConfigs("data/ags.conf")
 	auth.SetSysMagicNumber([]byte(config.GetValue("SysMagicNumber")))
 	inited := config.IsConfigInited()
 	if !inited {

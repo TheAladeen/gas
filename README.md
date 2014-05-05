@@ -30,7 +30,7 @@ Using Sqlite for database mainly because it's simplicity, and should be more eno
         export PATH=$GOROOT/bin:$GOPATH/bin:$PATH  
 3. go get github.com/featen/ags
 4. Modify nginx conf for reflect the source dir above and run nginx.
-5. Modify your site config at data/ags.config.
+5. Modify your site config at data/ags.conf.
 6. go run app.go
 
 
