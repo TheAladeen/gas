@@ -34,7 +34,7 @@ window.app.config(['$routeProvider',
                 }).
                 when('/UsageTerm', {
                     templateUrl: 'views/usageterm.html'
-                }).       
+                }).
                 when('/uploadfile/redirect/:ReUrl', {
                     templateUrl: 'views/dropboxupload.html'
                 }).
@@ -82,10 +82,10 @@ window.app.config(['$routeProvider',
                 }).
                 when('/customer/:Id', {
                     templateUrl: 'views/editcustomer.html'
-                }).        
+                }).
                 when('/customer/:Id/savedid/:SavedDataId/uploaded/:UploadedUrlsId', {
                     templateUrl: 'views/editcustomer.html'
-                }).        
+                }).
                 when('/reports', {
                     templateUrl: 'views/reports.html'
                 }).
@@ -101,6 +101,9 @@ window.app.config(['$routeProvider',
                 when('/deals', {
                     templateUrl: 'views/deals.html'
                 }).
+				when('/dict', {
+					templateUrl: 'views/dict.html'
+				}).
                 when('/', {
                     templateUrl: 'views/page.html'
                 }).

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service"
+	"github.com/featen/ags/service/config"
 	log "github.com/featen/utils/log"
 	"net/http"
 	"os"
@@ -37,7 +38,7 @@ func main() {
 
 	service.RegService()
 
-	log.Info("start listening on localhost:8080")
-	fmt.Println("ags server started on port 8080")
-	http.ListenAndServe(":8080", nil)
+	log.Info("start listening on localhost:%s", config.GetValue("ServicePort"))
+	fmt.Println("ags server started on port ", config.GetValue("ServicePort"))
+	http.ListenAndServe(":"+config.GetValue("ServicePort"), nil)
 }
