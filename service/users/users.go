@@ -2,12 +2,12 @@ package users
 
 import (
 	"database/sql"
-	log "github.com/featen/utils/log"
 	"fmt"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
 	"github.com/featen/ags/service/mails"
+	log "github.com/featen/utils/log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -76,7 +76,7 @@ const customerPageLimit = 10
 func Register() {
 	ws := new(restful.WebService)
 	ws.
-		Path("/users").
+		Path("/service/users").
 		Consumes(restful.MIME_JSON, restful.MIME_XML).
 		Produces(restful.MIME_JSON, restful.MIME_XML) // you can specify this per route as well
 
@@ -96,7 +96,7 @@ func Register() {
 
 	ws_recover := new(restful.WebService)
 	ws_recover.
-		Path("/recover").
+		Path("/service/recover").
 		Consumes(restful.MIME_JSON, restful.MIME_XML).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 	ws_recover.Route(ws_recover.GET("/{recover_magic}").To(verifyRecover))
@@ -104,7 +104,7 @@ func Register() {
 	restful.Add(ws_recover)
 
 	ws_customer := new(restful.WebService)
-	ws_customer.Path("/customers").
+	ws_customer.Path("/service/customers").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 	ws_customer.Route(ws_customer.GET("/search/{searchtext}/page/{pagenumber}").To(searchCustomers).Filter(auth.AuthEmployeeFilter))

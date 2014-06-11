@@ -55,7 +55,7 @@ func Register() {
 	log.Info("enquire registered")
 
 	ws := new(restful.WebService)
-	ws.Path("/enquire").
+	ws.Path("/service/enquire").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 	ws.Route(ws.GET("/search/{searchtext}/page/{pagenumber}").To(searchEnquires).Filter(auth.AuthEmployeeFilter))

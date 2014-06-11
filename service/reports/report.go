@@ -22,7 +22,7 @@ const timeLayout = "2006-01-02 3:04pm"
 func Register() {
 	log.Info("report registered")
 	ws := new(restful.WebService)
-	ws.Path("/report").
+	ws.Path("/service/report").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 	ws.Route(ws.GET("/{cond}").To(genDataByCond).Filter(auth.AuthEmployeeFilter))

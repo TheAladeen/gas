@@ -26,7 +26,7 @@ func Register() {
 	log.Info("articles registered")
 
 	ws := new(restful.WebService)
-	ws.Path("/articles").
+	ws.Path("/service/articles").
 		Consumes(restful.MIME_JSON, restful.MIME_XML).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 

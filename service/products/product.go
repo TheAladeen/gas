@@ -49,7 +49,7 @@ const productPageLimit = 10
 func Register() {
 	log.Info("product registered")
 	ws := new(restful.WebService)
-	ws.Path("/product").
+	ws.Path("/service/product").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 	ws.Route(ws.GET("").To(getAllProducts).Filter(auth.AuthEmployeeFilter))
@@ -62,7 +62,7 @@ func Register() {
 	restful.Add(ws)
 
 	wsDeal := new(restful.WebService)
-	wsDeal.Path("/deals").
+	wsDeal.Path("/service/deals").
 		Consumes(restful.MIME_XML, restful.MIME_JSON).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 	wsDeal.Route(wsDeal.GET("").To(getAllProducts))

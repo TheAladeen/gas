@@ -32,7 +32,7 @@ func InitDbSql() []string {
 func Register() {
 	log.Info("share service registered")
 
-	http.HandleFunc("/uploadphoto", uploadPhotoHandler)
+	http.HandleFunc("/service/uploadphoto", uploadPhotoHandler)
 }
 
 func getSessionUploadFileUrls(session string) (int, string) {
