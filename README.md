@@ -29,7 +29,7 @@ Using Sqlite for database mainly because it's simplicity, and should be more eno
 ## Deploy to Openshift (free)
 
 1. Create an openshift account and create a golang app.
-2. Install openshift command line tool and ssh to your app.
+2. Install openshift command line tool and ssh to your app. If you have example app running, please kill it.
 3. Because golang env is already in place, just repeat the 2-4 steps in Install section.
 
 
