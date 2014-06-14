@@ -19,18 +19,17 @@ While Golang modules are responsible for providing restful api to angularjs weba
 Using Sqlite for database mainly because it's simplicity, and should be more enough for me.
 
 
-## Install - Linux & MacOS
+## Install
 
-1. Nginx.   
-        Nginx is used for providing static resources, while restful requests were forwarded to 8080 port. Check out the conf file for nginx at data/nginx.conf.
-2. Golang.  
-	Download tar.gz file and untar it to /golang/go.  in your ~/.bashrc  
-	export GOROOT=/golang/go  
-	export GOPATH=/golang/ext/  
-        export PATH=$GOROOT/bin:$GOPATH/bin:$PATH  
-3. go get github.com/featen/ags
-4. Modify nginx conf for reflect the source dir above and run nginx.
-5. Modify your site config at data/ags.conf.
-6. go run app.go
+1. Install Golang.  
+2. go get github.com/featen/ags
+3. Modify your site config at data/ags.conf.
+4. go run app.go
+
+## Deploy to Openshift (free)
+
+1. Create an openshift account and create a golang app.
+2. Install openshift command line tool and ssh to your app.
+3. Because golang env is already in place, just repeat the 2-4 steps in Install section.
 
 
