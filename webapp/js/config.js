@@ -104,6 +104,12 @@ window.app.config(['$routeProvider',
 				when('/dict', {
 					templateUrl: 'views/dict.html'
 				}).
+				when('/agent/:Id', {
+					templateUrl: 'views/viewagent.html'
+				}).
+				when('/createagent', {
+					templateUrl: 'views/createagent.html'
+				}).
                 when('/', {
                     templateUrl: 'views/page.html'
                 }).

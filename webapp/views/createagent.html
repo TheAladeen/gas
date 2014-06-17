@@ -1,0 +1,46 @@
+<div class="content-outer" data-ng-controller="AgentEditController">
+	<div id="page-content" class="row page">
+		<div id="primary" class="eight columns">
+			<div id="contact-form">
+				<form name="form" novalidate>
+					<fieldset>
+						<legend>
+							<p>
+								<button type="button" class="btn btn-info" data-ng-click="create()">Publish</button>
+							</p>
+						</legend>
+						<div>
+							<div>
+								<input type="text" size="50" id="inputTitle" name="inputTitle"
+									data-ng-model="data.title" placeholder="Title" required />
+							</div>
+							<div>
+								<input type="text" size="50" id="inputNavName"
+									name="inputNavName" data-ng-model="data.navname" placeholder="Name"
+									required />
+							</div>
+							<div>
+								<input type="text" size="50" id="inputCoverPhoto"
+									name="inputCoverPhoto" data-ng-model="data.coverphoto"
+									placeholder="Covor Photo" required />
+							</div>
+							<div>
+								<textarea rows="5" cols="50" id="inputIntro" name="inputIntro"
+									data-ng-model="data.intro" placeholder="Introduction" required></textarea>
+							</div>
+							<div>
+								<textarea rows="30" cols="50" id="inputContent"
+									name="inputContent" data-ng-model="data.content" required></textarea>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+

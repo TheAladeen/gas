@@ -1,4 +1,4 @@
-window.app = angular.module('featen', ['ngCookies', 'ngResource', 'ngRoute', 'featen.system', 'featen.user',  'featen.share', 'featen.article', 'featen.product', 'featen.customer', 'featen.enquire','featen.report', 'featen.deal', 'featen.dict']);
+window.app = angular.module('featen', ['ngCookies', 'ngResource', 'ngRoute', 'featen.system', 'featen.user',  'featen.share', 'featen.article', 'featen.product', 'featen.customer', 'featen.enquire','featen.report', 'featen.deal', 'featen.dict', 'featen.agent']);
 
 angular.module('featen.system', []);
 angular.module('featen.user', []);
@@ -10,3 +10,4 @@ angular.module('featen.enquire', []);
 angular.module('featen.report', []);
 angular.module('featen.deal', []);
 angular.module('featen.dict', []);
+angular.module('featen.agent', []);
