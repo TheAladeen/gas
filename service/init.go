@@ -54,8 +54,7 @@ func createDb() {
 		}
 	}
 
-	agents.InitTable()
-
+    agents.InitTable()
 }
 
 func updateAdminUser() {
@@ -82,6 +81,8 @@ func addAdminUser() {
 
 func RegService() {
 	config.InitConfigs("data/ags.conf")
+    agents.Init()
+
 	auth.SetSysMagicNumber([]byte(config.GetValue("SysMagicNumber")))
 	inited := config.IsConfigInited()
 	if !inited {

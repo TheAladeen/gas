@@ -1,7 +1,6 @@
 package agents
 
 import (
-	"database/sql"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/config"
 	db "github.com/featen/utils/db"
@@ -17,11 +16,16 @@ type Agent struct {
 
 const timeLayout = "2006-01-02 3:04pm"
 
-var obj = db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "agents"}
-var info db.InfoFetcher = obj
+var info db.InfoFetcher
+
+func Init() {
+    obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "agents", Keyattrs: []string{"Title"}}
+    info = obj
+}
 
 func InitTable() {
-	obj.CreateTable()
+    log.Info("create table agents")
+	info.CreateTable()
 }
 
 func Register() {
@@ -41,9 +45,8 @@ func Register() {
 
 func getAllAgents(req *restful.Request, resp *restful.Response) {
 	log.Debug("get all agents")
-	info = obj
 
-	allagents, ret := info.FetchInfoRows("t.Status=1")
+	allagents, ret := info.FetchInfoRows(" t.status=1 ")
 	if ret == http.StatusOK {
 		resp.WriteEntity(allagents)
 	} else {
@@ -55,10 +58,9 @@ func findAgentById(req *restful.Request, resp *restful.Response) {
 	agent := new(Agent)
 	id := req.PathParameter("agent-id")
 
-	info = obj
-	allgents, ret := info.FetchInfoRows("t.Id=" + id)
+	allgents, ret := info.FetchInfoRows("t.id=" + id)
 
-	if ret == http.StatusOK {
+	if ret == http.StatusOK && len(allgents) == 1 {
 		agent.Id = allgents[0].Id
 		agent.Status = allgents[0].Status
 		agent.Info = allgents[0].Info
@@ -75,8 +77,9 @@ func createAgent(req *restful.Request, resp *restful.Response) {
 	agent := new(Agent)
 	err := req.ReadEntity(&agent)
 	if err == nil {
-		ret := dbCreateAgent(agent)
+        id, ret := info.InsertRow(agent.Info)
 		if ret == http.StatusOK {
+            agent.Id = id
 			resp.WriteHeader(http.StatusCreated)
 			resp.WriteEntity(agent)
 		} else {
@@ -87,29 +90,3 @@ func createAgent(req *restful.Request, resp *restful.Response) {
 	}
 }
 
-func dbCreateAgent(agent *Agent) int {
-	log.Debug("try to create agent %v", agent)
-
-	dbHandler, err := sql.Open("sqlite3", config.GetValue("DbFile"))
-	if err != nil {
-		log.Fatal("%v", err)
-	}
-	defer dbHandler.Close()
-
-	stmt, err := dbHandler.Prepare("INSERT INTO agents (info) VALUES (?)")
-	if err != nil {
-		log.Error("%v", err)
-		return http.StatusInternalServerError
-	}
-	defer stmt.Close()
-
-	r, err := stmt.Exec(agent.Info)
-	if err != nil {
-		log.Error("%v", err)
-		return http.StatusBadRequest
-	}
-	id, _ := r.LastInsertId()
-	agent.Id = id
-
-	return http.StatusOK
-}
