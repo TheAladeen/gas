@@ -3,16 +3,16 @@ package service
 import (
 	"database/sql"
 	"fmt"
+	"github.com/featen/ags/service/agents"
 	"github.com/featen/ags/service/articles"
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
+	"github.com/featen/ags/service/dict"
 	"github.com/featen/ags/service/enquires"
 	"github.com/featen/ags/service/products"
 	"github.com/featen/ags/service/reports"
 	"github.com/featen/ags/service/share"
 	"github.com/featen/ags/service/users"
-    "github.com/featen/ags/service/dict"
-    "github.com/featen/ags/service/agents"
 	log "github.com/featen/utils/log"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -44,8 +44,7 @@ func createDb() {
 		"CREATE TABLE IF NOT EXISTS enquire_product (id integer NOT NULL  PRIMARY KEY, enquire_id integer, user_id integer, product_id integer, product_navname text, product_name text, cover_photo text, price real)",
 		"CREATE TABLE IF NOT EXISTS reviewboard (id integer NOT NULL PRIMARY KEY, customer_type integer,  customer_id integer, status integer, product_id integer, product_navname text, product_name text, cover_photo text, price real)",
 		"CREATE TABLE IF NOT EXISTS article (id integer NOT NULL PRIMARY KEY, title text, navname text unique, cover_photo text, intro text, content text, create_by_user_id integer, create_time timestamp default current_timestamp, last_modify_time timestamp)",
-        "create table if not exists dict (id integer NOT NULL PRIMARY KEY, q text, fanyi text)",
-        "create table if not exists agents (id integer NOT NULL PRIMARY KEY, info text, status int)",
+		"create table if not exists dict (id integer NOT NULL PRIMARY KEY, q text, fanyi text)",
 	}
 
 	for _, s := range sqls {
@@ -54,6 +53,8 @@ func createDb() {
 			log.Fatal("%q: %s\n", err, s)
 		}
 	}
+
+	agents.InitTable()
 
 }
 
@@ -97,6 +98,6 @@ func RegService() {
 	products.Register()
 	enquires.Register()
 	reports.Register()
-    dict.Register()
-    agents.Register()
+	dict.Register()
+	agents.Register()
 }

@@ -4,18 +4,25 @@ import (
 	"database/sql"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/config"
+	db "github.com/featen/utils/db"
 	log "github.com/featen/utils/log"
 	"net/http"
-	"strconv"
 )
 
 type Agent struct {
-	Id string
-    Status int64
-    Info string
+	Id     int64
+	Status int64
+	Info   string
 }
 
 const timeLayout = "2006-01-02 3:04pm"
+
+var obj = db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "agents"}
+var info db.InfoFetcher = obj
+
+func InitTable() {
+	obj.CreateTable()
+}
 
 func Register() {
 	log.Info("agents registered")
@@ -33,85 +40,36 @@ func Register() {
 }
 
 func getAllAgents(req *restful.Request, resp *restful.Response) {
-	log.Debug("get all articles")
-	dbHandler, err := sql.Open("sqlite3", config.GetValue("DbFile"))
-	if err != nil {
-		log.Fatal("%v", err)
-        resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
-        return
-	}
-	defer dbHandler.Close()
+	log.Debug("get all agents")
+	info = obj
 
-	stmt, err := dbHandler.Prepare("SELECT id, info FROM agents ORDER BY a.id DESC")
-	if err != nil {
-		log.Error("%v", err)
-        resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
-        return
+	allagents, ret := info.FetchInfoRows("t.Status=1")
+	if ret == http.StatusOK {
+		resp.WriteEntity(allagents)
+	} else {
+		resp.WriteErrorString(ret, http.StatusText(ret))
 	}
-	defer stmt.Close()
-	rows, err := stmt.Query()
-	if err != nil {
-		log.Fatal("%v", err)
-        resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
-		return
-	}
-	defer rows.Close()
-
-	allagents := make([]Agent, 0)
-	for rows.Next() {
-		var info sql.NullString
-		var id sql.NullInt64
-		rows.Scan(&id, &info)
-
-		allagents = append(allagents, Agent{strconv.FormatInt(id.Int64, 10), 0, info.String})
-	}
-    resp.WriteEntity(allagents)
 }
 
 func findAgentById(req *restful.Request, resp *restful.Response) {
 	agent := new(Agent)
-	agent.Id = req.PathParameter("agent-id")
+	id := req.PathParameter("agent-id")
 
-    log.Debug("try to find agent with id : %v", agent.Id)
-	dbHandler, err := sql.Open("sqlite3", config.GetValue("DbFile"))
-	if err != nil {
-		log.Fatal("%v", err)
-        return
-	}
-	defer dbHandler.Close()
+	info = obj
+	allgents, ret := info.FetchInfoRows("t.Id=" + id)
 
-	stmt, err := dbHandler.Prepare("SELECT info FROM agents WHERE id = ? ")
-	if err != nil {
-		log.Error("%v", err)
-        resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
-		return
-	}
-	defer stmt.Close()
+	if ret == http.StatusOK {
+		agent.Id = allgents[0].Id
+		agent.Status = allgents[0].Status
+		agent.Info = allgents[0].Info
 
-	var info sql.NullString
-	err = stmt.QueryRow(agent.Id).Scan(&info)
-	if err != nil {
-		log.Error("%v", err)
-		if err == sql.ErrNoRows {
-           resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusNotFound))
-			return
-		} else {
-           resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusInternalServerError))
-			return
-		}
-	}
-
-	if !info.Valid {
-        resp.WriteErrorString(http.StatusInternalServerError, http.StatusText(http.StatusNotFound))
-		return
+		resp.WriteEntity(agent)
 	} else {
-		agent.Info = info.String
+		resp.WriteErrorString(ret, http.StatusText(ret))
+
 	}
 
-	resp.WriteEntity(agent)
 }
-
-
 
 func createAgent(req *restful.Request, resp *restful.Response) {
 	agent := new(Agent)
@@ -128,8 +86,6 @@ func createAgent(req *restful.Request, resp *restful.Response) {
 		resp.WriteError(http.StatusInternalServerError, err)
 	}
 }
-
-
 
 func dbCreateAgent(agent *Agent) int {
 	log.Debug("try to create agent %v", agent)
@@ -153,9 +109,7 @@ func dbCreateAgent(agent *Agent) int {
 		return http.StatusBadRequest
 	}
 	id, _ := r.LastInsertId()
-	agent.Id = strconv.FormatInt(id, 10)
+	agent.Id = id
 
 	return http.StatusOK
 }
-
-
