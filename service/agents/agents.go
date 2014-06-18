@@ -3,8 +3,8 @@ package agents
 import (
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/config"
-	db "github.com/featen/utils/db"
-	log "github.com/featen/utils/log"
+	db "github.com/featen/ags/utils/db"
+	log "github.com/featen/ags/utils/log"
 	"net/http"
 )
 
@@ -19,12 +19,12 @@ const timeLayout = "2006-01-02 3:04pm"
 var info db.InfoFetcher
 
 func Init() {
-    obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "agents", Keyattrs: []string{"Title"}}
-    info = obj
+	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "agents", Keyattrs: []string{"Title"}}
+	info = obj
 }
 
 func InitTable() {
-    log.Info("create table agents")
+	log.Info("create table agents")
 	info.CreateTable()
 }
 
@@ -46,40 +46,32 @@ func Register() {
 func getAllAgents(req *restful.Request, resp *restful.Response) {
 	log.Debug("get all agents")
 
-	allagents, ret := info.FetchInfoRows(" t.status=1 ")
+	all, ret := info.FetchInfoRows(" t.status=1 ")
 	if ret == http.StatusOK {
-		resp.WriteEntity(allagents)
+		resp.WriteEntity(all)
 	} else {
 		resp.WriteErrorString(ret, http.StatusText(ret))
 	}
 }
 
 func findAgentById(req *restful.Request, resp *restful.Response) {
-	agent := new(Agent)
 	id := req.PathParameter("agent-id")
-
-	allgents, ret := info.FetchInfoRows("t.id=" + id)
-
-	if ret == http.StatusOK && len(allgents) == 1 {
-		agent.Id = allgents[0].Id
-		agent.Status = allgents[0].Status
-		agent.Info = allgents[0].Info
-
-		resp.WriteEntity(agent)
+	log.Debug("get agent by id %s", id)
+	all, ret := info.FetchInfoRows("t.id=" + id)
+	if ret == http.StatusOK && len(all) == 1 {
+		resp.WriteEntity(all[0])
 	} else {
 		resp.WriteErrorString(ret, http.StatusText(ret))
-
 	}
-
 }
 
 func createAgent(req *restful.Request, resp *restful.Response) {
 	agent := new(Agent)
 	err := req.ReadEntity(&agent)
 	if err == nil {
-        id, ret := info.InsertRow(agent.Info)
+		id, ret := info.InsertRow(agent.Info)
 		if ret == http.StatusOK {
-            agent.Id = id
+			agent.Id = id
 			resp.WriteHeader(http.StatusCreated)
 			resp.WriteEntity(agent)
 		} else {
@@ -89,4 +81,3 @@ func createAgent(req *restful.Request, resp *restful.Response) {
 		resp.WriteError(http.StatusInternalServerError, err)
 	}
 }
-

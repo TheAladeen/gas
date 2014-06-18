@@ -5,7 +5,7 @@ import (
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	"math"
 	"net/http"
 	"strconv"
@@ -21,6 +21,16 @@ type Article struct {
 }
 
 const timeLayout = "2006-01-02 3:04pm"
+
+func Init() {
+	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "articles", Keyattrs: []string{"Title", "CreateTime"}}
+	info = obj
+}
+
+func InitTable() {
+	log.Info("create table articles")
+	info.CreateTable()
+}
 
 func Register() {
 	log.Info("articles registered")
@@ -49,6 +59,13 @@ func Register() {
 }
 
 func getAllArticles(req *restful.Request, resp *restful.Response) {
+	/*all, ret := info.FetchInfoRows(" t.status=1 ")
+	if ret == http.StatusOK {
+		resp.WriteEntity(all)
+	} else {
+		resp.WriteErrorString(ret, http.StatusText(ret))
+	}
+	*/
 	allArticles, ret := dbGetAllArticles()
 	if ret == http.StatusOK {
 		resp.WriteEntity(allArticles)

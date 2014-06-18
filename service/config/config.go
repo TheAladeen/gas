@@ -3,7 +3,7 @@ package config
 import (
 	"encoding/json"
 	"fmt"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	"io/ioutil"
 )
 

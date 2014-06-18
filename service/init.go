@@ -13,7 +13,7 @@ import (
 	"github.com/featen/ags/service/reports"
 	"github.com/featen/ags/service/share"
 	"github.com/featen/ags/service/users"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -54,7 +54,8 @@ func createDb() {
 		}
 	}
 
-    agents.InitTable()
+	agents.InitTable()
+	articles.InitTable()
 }
 
 func updateAdminUser() {
@@ -81,7 +82,8 @@ func addAdminUser() {
 
 func RegService() {
 	config.InitConfigs("data/ags.conf")
-    agents.Init()
+	agents.Init()
+	articles.Init()
 
 	auth.SetSysMagicNumber([]byte(config.GetValue("SysMagicNumber")))
 	inited := config.IsConfigInited()

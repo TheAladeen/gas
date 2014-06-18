@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/config"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	"html/template"
 	"net/http"
 )

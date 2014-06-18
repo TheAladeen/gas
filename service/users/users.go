@@ -7,7 +7,7 @@ import (
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
 	"github.com/featen/ags/service/mails"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	"net/http"
 	"strconv"
 	"strings"

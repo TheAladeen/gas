@@ -2,7 +2,7 @@ package mails
 
 import (
 	"github.com/featen/ags/service/config"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	"net/http"
 	"net/smtp"
 )

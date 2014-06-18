@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	"io/ioutil"
 	"net/http"
 	"os"
