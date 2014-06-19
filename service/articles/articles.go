@@ -6,6 +6,7 @@ import (
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
 	log "github.com/featen/ags/utils/log"
+    db "github.com/featen/ags/utils/db"
 	"math"
 	"net/http"
 	"strconv"
@@ -21,6 +22,7 @@ type Article struct {
 }
 
 const timeLayout = "2006-01-02 3:04pm"
+var info db.InfoFetcher
 
 func Init() {
 	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "articles", Keyattrs: []string{"Title", "CreateTime"}}
