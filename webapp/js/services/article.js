@@ -5,7 +5,7 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
             var error = {
                 type: "warning",
                 strong: "Warning!",
-                message: "无法获取文章列表，请耍一会再试."
+                message: "Cannot get all articles, please try it later."
             };
             Alerts.handle(promise, error, undefined, scall, ecall);
 
@@ -13,12 +13,12 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
         };
 
 
-        this.getarticle = function(navname, scall, ecall) {
-            var promise = $http.get("/service/articles/name/" + navname);
+        this.get= function(nav, scall, ecall) {
+            var promise = $http.get("/service/articles/name/" + nav);
             var error = {
                 type: "warning",
                 strong: "Warning!",
-                message: "无法获取文章列表，请耍一会再试."
+                message: "Cannot get all articles, please try it later."
             };
             Alerts.handle(promise, error, undefined, scall, ecall);
 
@@ -52,12 +52,12 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
             var error = {
                 type: "error",
                 strong: "Failed!",
-                message: "现在创建不了文章，请等一会再试."
+                message: "Cannot create article right now, please check your input."
             };
             var success = {
                 type: "success",
                 strong: "Success!",
-                message: "文章创建成功."
+                message: "Article created."
             };
             Alerts.handle(promise, error, success, scall, ecall);
 
@@ -69,7 +69,7 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
             var error = {
                 type: "info",
                 strong: "Failed!",
-                message: "暂时无法保存改动."
+                message: "Cannot save your article right now."
             };
             Alerts.handle(promise, error, undefined, scall, ecall);
 
@@ -84,12 +84,12 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
             var error = {
                 type: "error",
                 strong: "Failed!",
-                message: "删除文章失败."
+                message: "Delete article failed."
             };
             var success = {
                 type: "success",
                 strong: "Success!",
-                message: "成功删除文章."
+                message: "Delete aritcle success."
             };
             Alerts.handle(promise, error, success, scall, ecall);
 

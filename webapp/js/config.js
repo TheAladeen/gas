@@ -44,7 +44,7 @@ window.app.config(['$routeProvider',
                 when('/blogs', {
                     templateUrl: 'views/allblog.html'
                 }).
-                when('/blog/:NavName', {
+                when('/blog/:Nav', {
                     templateUrl: 'views/viewblog.html'
                 }).
                 when('/writeblog', {

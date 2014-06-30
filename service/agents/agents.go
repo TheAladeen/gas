@@ -1,11 +1,12 @@
 package agents
 
 import (
+	"net/http"
+
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/config"
 	db "github.com/featen/ags/utils/db"
 	log "github.com/featen/ags/utils/log"
-	"net/http"
 )
 
 type Agent struct {
@@ -46,7 +47,7 @@ func Register() {
 func getAllAgents(req *restful.Request, resp *restful.Response) {
 	log.Debug("get all agents")
 
-	all, ret := info.FetchInfoRows(" t.status=1 ")
+	all, ret := info.SelectRows(" status=1 ")
 	if ret == http.StatusOK {
 		resp.WriteEntity(all)
 	} else {
@@ -57,7 +58,7 @@ func getAllAgents(req *restful.Request, resp *restful.Response) {
 func findAgentById(req *restful.Request, resp *restful.Response) {
 	id := req.PathParameter("agent-id")
 	log.Debug("get agent by id %s", id)
-	all, ret := info.FetchInfoRows("t.id=" + id)
+	all, ret := info.SelectRows(" id=" + id)
 	if ret == http.StatusOK && len(all) == 1 {
 		resp.WriteEntity(all[0])
 	} else {

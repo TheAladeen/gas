@@ -29,6 +29,11 @@ angular.module('featen.article').controller('PageController', ['$scope', '$route
 		});
 		Articles.getPageArticles($scope.currPage, function(ps) {
 			$scope.articles = ps;
+            $scope.articles.forEach(function(elem, index, array) {
+                elem.Info = JSON.parse(elem.Info);
+                var ct = elem.Info.CreateTime;
+                elem.Info.CreateTime = d3.time.format('%Y-%m-%d %I:%M%p')(new Date(ct));
+            });
 		});
 		Deals.getPageDeals($scope.currPage, function(ds) {
 			$scope.deals = ds;
@@ -50,11 +55,13 @@ angular.module('featen.article').controller('ArticleViewController', ['$scope', 
 
         $scope.getblog = function() {
 		(adsbygoogle = window.adsbygoogle || []).push({});
-            var navname = $routeParams.NavName;
+            var nav= $routeParams.Nav;
 
-            Articles.getarticle(navname, function(a) {
+            Articles.get(nav, function(a) {
                 $scope.article = a;
-                var htmlcontent = marked($scope.article.Content);
+                $scope.info = JSON.parse(a.Info);
+                $scope.info.CreateTime = d3.time.format('%Y-%m-%d %I:%M%p')(new Date($scope.info.CreateTime));
+                var htmlcontent = marked($scope.info.Content);
                 $('#htmlcontentdiv').html(htmlcontent);
             });
             
@@ -65,8 +72,6 @@ angular.module('featen.article').controller('ArticleViewController', ['$scope', 
     }]);
 
 angular.module('featen.article').controller('ArticleEditController', ['$scope', '$window', '$document', '$routeParams', '$location', 'Global', 'StageData', 'Articles', function($scope, $window, $document, $routeParams, $location, Global, StageData, Articles) {
-
-        //$scope.global = Global;
         $scope.data = {};
         $scope.editstate = true;
         
@@ -114,7 +119,7 @@ angular.module('featen.article').controller('ArticleEditController', ['$scope', 
         };
       
         $scope.create = function() {
-            Articles.create({"Title": $scope.data.title, "NavName": $scope.data.navname.replace(/ /g,"_"), "CoverPhoto": $scope.data.coverphoto, "Intro": $scope.data.intro, "Content": $scope.data.content}, function(l) {
+            Articles.create({"Info":JSON.stringify({"Title": $scope.data.title, "Nav": $scope.data.navname.replace(/ /g,"_"), "CoverPhoto": $scope.data.coverphoto, "Intro": $scope.data.intro, "Content": $scope.data.content, "CreateTime": Date.now()})}, function(l) {
                 $location.path('/');
             });
         }; 
