@@ -17,7 +17,7 @@ const timeLayout = "2006-01-02 3:04pm"
 var info db.InfoFetcher
 
 func Init() {
-	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "articles", Keyattrs: []string{"Title", "CreateTime"}}
+	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "articles", Keyattrs: []string{"Nav", "Title", "CreateTime"}}
 	info = obj
 }
 
@@ -39,7 +39,7 @@ func Register() {
 	ws.Route(ws.GET("/name/{nav}").To(getArticleByNav))
 	ws.Route(ws.PUT("/{article-id}").To(updateArticle).Filter(auth.AuthEmployeeFilter))
 	ws.Route(ws.POST("").To(createArticle).Filter(auth.AuthEmployeeFilter))
-	ws.Route(ws.DELETE("/{article-id}").To(removeArticle).Filter(auth.AuthFilter))
+	ws.Route(ws.DELETE("/{id}").To(delArticle).Filter(auth.AuthFilter))
 	//extra apis for page rendering.
 	ws.Route(ws.GET("/totalpage/number").To(getTotalPageNumber))
 	ws.Route(ws.GET("/page/{pageNumber}").To(getPageArticles))
@@ -74,7 +74,7 @@ func getArticleByNav(req *restful.Request, resp *restful.Response) {
 	nav := req.PathParameter("nav")
 	log.Debug("get article by nav %s", nav)
 
-	all, ret := info.SelectRows(" status=1 AND nav='" + nav + "'")
+	all, ret := info.SelectRows(" status=1 AND Nav='" + nav + "'")
 	if ret == http.StatusOK && len(all) == 1 {
 		resp.WriteEntity(all[0])
 	} else {
@@ -102,7 +102,7 @@ func createArticle(req *restful.Request, resp *restful.Response) {
 	if err == nil {
 		_, ret := info.InsertRow(obj.Info)
 		if ret == http.StatusOK {
-			resp.WriteHeader(http.StatusCreated)
+			resp.WriteHeader(ret)
 		} else {
 			resp.WriteErrorString(ret, http.StatusText(ret))
 		}
@@ -111,14 +111,8 @@ func createArticle(req *restful.Request, resp *restful.Response) {
 	}
 }
 
-func removeArticle(req *restful.Request, resp *restful.Response) {
-	id := req.PathParameter("article-id")
-	ret := info.DeleteRow(" id=" + id)
-	if ret == http.StatusOK {
-		resp.WriteHeader(http.StatusOK)
-	} else {
-		resp.WriteErrorString(ret, http.StatusText(ret))
-	}
+func delArticle(req *restful.Request, resp *restful.Response) {
+	info.Del(req, resp)
 }
 
 func getTotalPageNumber(req *restful.Request, resp *restful.Response) {

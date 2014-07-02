@@ -1,4 +1,4 @@
-<div class="content-outer" data-ng-controller="ProductEditController" data-ng-init="getProduct()">
+<div class="content-outer" data-ng-controller="ProductEditController" data-ng-init="get()">
     <div id="page-content" class="row page">
         <div id="primary" class="eight columns">
             <div id="contact-form">
@@ -6,29 +6,15 @@
                     <fieldset>
                         <legend>Edit Product Details</legend>
                         <div>
-                            <label for="inputNavName">Navigation Name</label>
-                            <input type="text" size="50" id="inputNavName" name="inputNavName" ng-model="data.NavName" required />
+                            <label for="inputName">Name</label>
+                            <input type="text" size="50" id="inputName" name="inputName" ng-model="data.Name" required />
                         </div>
 
                         <div>
-                            <label for="inputEnName">Product Name</label>
-                            <input type="text" size="50" id="inputEnName" name="inputEnName" ng-model="data.EnName" required />
+                            <label for="inputTitle">Title</label>
+                            <input type="text" size="50" id="inputTitle" name="inputTitle" ng-model="data.Title" required />
                         </div>
 
-                        <div>
-                            <label for="inputCnName">中文名</label>
-                            <input type="text" size="50" id="inputCnName" name="inputCnName" ng-model="data.CnName" required />
-                        </div>
-
-                        <div>
-                            <label for="selectStatus">Status</label>
-                            <select id="selectStatus" data-ng-model="data.Status">
-                                <option value="0">Not For Sale</option>
-                                <option value="1">For Sale</option>
-                                <option value="2">On Sale</option>
-                            </select>
-                        </div>
-  
                         <div>
                             <label for="inputPrice">Price</label>
                             <input type="text" size="50" id="inputPrice" name="inputPrice" ng-model="data.Price" required />
@@ -51,16 +37,24 @@
                         
                          <div>
                             <label for="inputTaobaoUrl">Taobao</label>
-                            <input type="text" size="50" id="inputTaobaoUrl" name="inputTaobaoUrl" ng-model="data.taobaourl" />
+                            <input type="text" size="50" id="inputTaobaoUrl" name="inputTaobaoUrl" ng-model="data.tburl" />
                         </div>
                        
                         <div>
                             <label for="inputEbayUrl">Ebay </label>
                             <input type="text" class="form-control" id="inputEbayUrl" name="inputEbayUrl" ng-model="data.ebayurl" />
                         </div>
+                        <div>
+                            <label for="inputWbUrl">Weibo </label>
+                            <input type="text" class="form-control" id="inputWbUrl" name="inputWbUrl" ng-model="data.wburl" />
+                        </div>
+                        <div>
+                            <label for="inputFbUrl">Facebook </label>
+                            <input type="text" class="form-control" id="inputFbUrl" name="inputFbUrl" ng-model="data.fburl" />
+                        </div>
                         
                         <div>
-                            <button type="submit" class="btn" ng-disabled="form.$invalid" data-ng-click="saveproduct()">Submit</button>
+                            <button type="submit" class="btn" ng-disabled="form.$invalid" data-ng-click="update()">Submit</button>
                         </div>
                     </fieldset>
                 </form>

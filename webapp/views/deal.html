@@ -18,16 +18,17 @@
 			</div>
 			<div id="secondary" class="four columns end">
 				<div id="contact-form" class="row" style="padding:10px;">
-					<h4>{{deal.EnName}}</h4>
+					<h4>{{deal.Info.Title}}</h4>
 					<br>
                     <ul>
-                            <li><b><del>Listing Price: ${{deal.Price + deal.Discount}} </del></b></li>
-                            <li><h3>Now:    <span style="color: red">${{deal.Price}}</span></h3></li>
+                            <li><b><del>Listing Price: ${{deal.Info.Price + deal.Info.Discount}} </del></b></li>
+                            <li><h3>Now:    <span style="color: red">${{deal.Info.Price}}</span></h3></li>
                         
 							<li>
-							<a class="button" target="_blank" data-ng-hide="data.taobaourl.length==0" href="{{data.taobaourl}}">淘宝</a>
-							<a class="button" target="_blank" data-ng-hide="data.ebayurl.length==0" href="{{data.ebayurl}}">ebay</a>
-							<button type="button" data-ng-click="reviewlater()">+ Reviewboard</button>
+							<a class="button" target="_blank" data-ng-hide="deal.Info.tburl.length==0" href="{{deal.Info.tburl}}">淘宝</a>
+							<a class="button" target="_blank" data-ng-hide="deal.Info.ebayurl.length==0" href="{{deal.Info.ebayurl}}">ebay</a>
+							<a class="button" target="_blank" data-ng-hide="deal.Info.wburl.length==0" href="{{deal.Info.wburl}}">微博</a>
+							<a class="button" target="_blank" data-ng-hide="deal.Info.fburl.length==0" href="{{deal.Info.fburl}}">facebook</a>
 							</li>
                     </ul>
 								

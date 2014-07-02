@@ -65,10 +65,10 @@ window.app.config(['$routeProvider',
                 when('/addproduct/savedid/:SavedDataId/uploaded/:UploadedUrls', {
                     templateUrl: 'views/addproduct.html'
                 }).
-                when('/product/:NavName', {
+                when('/product/:Name', {
                     templateUrl: 'views/editproduct.html'
                 }).
-                when('/product/:NavName/savedid/:SavedDataId/uploaded/:UploadedUrls', {
+                when('/product/:Name/savedid/:SavedDataId/uploaded/:UploadedUrls', {
                     templateUrl: 'views/editproduct.html'
                 }).
                 when('/addcustomer', {
@@ -95,7 +95,7 @@ window.app.config(['$routeProvider',
                 when('/enquire/:Id', {
                 	templateUrl: 'views/editenquire.html'
                 }).
-                when('/deal/:NavName', {
+                when('/deal/:Name', {
                     templateUrl: 'views/deal.html'
                 }).
                 when('/deals', {
@@ -103,12 +103,6 @@ window.app.config(['$routeProvider',
                 }).
 				when('/dict', {
 					templateUrl: 'views/dict.html'
-				}).
-				when('/agent/:Id', {
-					templateUrl: 'views/viewagent.html'
-				}).
-				when('/createagent', {
-					templateUrl: 'views/createagent.html'
 				}).
                 when('/', {
                     templateUrl: 'views/page.html'

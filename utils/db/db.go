@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/emicklei/go-restful"
 	log "github.com/featen/utils/log"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -20,7 +21,6 @@ type InfoTable struct {
 type InfoObject struct {
 	Id     int64
 	Status int64
-	Nav    string
 	Info   string //this contains all the info which will be decoded by js.
 }
 
@@ -31,6 +31,10 @@ type InfoFetcher interface {
 	InsertRow(string) (int64, int)
 	DeleteRow(string) int
 	UpdateRow(int64, string) int
+	Add(*restful.Request, *restful.Response)
+	Update(*restful.Request, *restful.Response)
+	Del(*restful.Request, *restful.Response)
+	Get(*restful.Request, *restful.Response)
 }
 
 func VoidAttr(obj *InfoObject, attrs ...string) int {
@@ -67,7 +71,7 @@ func (infotable InfoTable) CreateTable() int {
 	for _, v := range infotable.Keyattrs {
 		keys += fmt.Sprint(", ", v, " text")
 	}
-	s := "create table if not exists " + infotable.Tablename + " (id integer NOT NULL PRIMARY KEY, status int default 1, nav text unique, info text " + keys + ")"
+	s := "create table if not exists " + infotable.Tablename + " (id integer NOT NULL PRIMARY KEY, status int default 1, info text " + keys + ")"
 
 	fmt.Println(s)
 	_, err = dbHandler.Exec(s)
@@ -170,7 +174,7 @@ func (infotable InfoTable) InsertRow(infostr string) (int64, int) {
 			values += fmt.Sprint(", '", v, "'")
 		}
 	}
-	str := "INSERT INTO " + infotable.Tablename + " (nav, info" + keys + " ) VALUES (?, ? " + values + ")"
+	str := "INSERT INTO " + infotable.Tablename + " (info" + keys + " ) VALUES (? " + values + ")"
 	stmt, err := dbHandler.Prepare(str)
 	if err != nil {
 		log.Error("%v", err)
@@ -178,7 +182,7 @@ func (infotable InfoTable) InsertRow(infostr string) (int64, int) {
 	}
 	defer stmt.Close()
 
-	r, err := stmt.Exec(m["Nav"], infostr)
+	r, err := stmt.Exec(infostr)
 	if err != nil {
 		log.Error("%v", err)
 		return 0, http.StatusBadRequest
@@ -196,7 +200,7 @@ func (infotable InfoTable) SelectRows(sqlstr string) ([]InfoObject, int) {
 	}
 	defer dbHandler.Close()
 
-	str := "SELECT id, status, nav, info FROM " + infotable.Tablename + " WHERE " + sqlstr
+	str := "SELECT id, status, info FROM " + infotable.Tablename + " WHERE " + sqlstr
 	stmt, err := dbHandler.Prepare(str)
 	if err != nil {
 		log.Error("%v", err)
@@ -213,12 +217,12 @@ func (infotable InfoTable) SelectRows(sqlstr string) ([]InfoObject, int) {
 
 	all := make([]InfoObject, 0)
 	for rows.Next() {
-		var nav, info sql.NullString
+		var info sql.NullString
 		var id, status sql.NullInt64
-		rows.Scan(&id, &status, &nav, &info)
+		rows.Scan(&id, &status, &info)
 
 		fmt.Println("one row found")
-		all = append(all, InfoObject{id.Int64, status.Int64, nav.String, info.String})
+		all = append(all, InfoObject{id.Int64, status.Int64, info.String})
 	}
 	if len(all) == 0 {
 		return nil, http.StatusNotFound
@@ -252,4 +256,54 @@ func (infotable InfoTable) SelectRowsCount(sqlstr string) (int64, int) {
 	}
 
 	return count.Int64, http.StatusOK
+}
+
+func (infotable InfoTable) Get(req *restful.Request, resp *restful.Response) {
+	name := req.PathParameter("name")
+	all, ret := infotable.SelectRows(" status=1 AND Name='" + name + "'")
+	if ret == http.StatusOK && len(all) == 1 {
+		resp.WriteEntity(all[0])
+	} else {
+		resp.WriteErrorString(ret, http.StatusText(ret))
+	}
+}
+
+func (infotable InfoTable) Update(req *restful.Request, resp *restful.Response) {
+	obj := new(InfoObject)
+	err := req.ReadEntity(&obj)
+	if err == nil {
+		ret := infotable.UpdateRow(obj.Id, obj.Info)
+		if ret == http.StatusOK {
+			resp.WriteHeader(ret)
+		} else {
+			resp.WriteErrorString(ret, http.StatusText(ret))
+		}
+	} else {
+		resp.WriteError(http.StatusInternalServerError, err)
+	}
+}
+
+func (infotable InfoTable) Add(req *restful.Request, resp *restful.Response) {
+	obj := new(InfoObject)
+	err := req.ReadEntity(&obj)
+	if err == nil {
+		_, ret := infotable.InsertRow(obj.Info)
+		if ret == http.StatusOK {
+			resp.WriteHeader(ret)
+		} else {
+			resp.WriteErrorString(ret, http.StatusText(ret))
+		}
+	} else {
+		resp.WriteError(http.StatusInternalServerError, err)
+	}
+}
+
+func (infotable InfoTable) Del(req *restful.Request, resp *restful.Response) {
+	id := req.PathParameter("id")
+	ret := infotable.DeleteRow(" id=" + id)
+	if ret == http.StatusOK {
+		resp.WriteHeader(http.StatusOK)
+	} else {
+		resp.WriteErrorString(ret, http.StatusText(ret))
+	}
 }

@@ -15,7 +15,7 @@ angular.module('featen.article').controller('ArticlesController', ['$scope', '$r
 
     }]);
 
-angular.module('featen.article').controller('PageController', ['$scope', '$routeParams', '$location', 'Global', 'Articles', 'Deals', function($scope, $routeParams, $location, Global, Articles, Deals) {
+angular.module('featen.article').controller('PageController', ['$scope', '$routeParams', '$location', 'Global', 'Articles', 'Products', function($scope, $routeParams, $location, Global, Articles, Products) {
 	$scope.currPage = 1;
 	
 	$scope.getPageArticles = function() {
@@ -35,8 +35,11 @@ angular.module('featen.article').controller('PageController', ['$scope', '$route
                 elem.Info.CreateTime = d3.time.format('%Y-%m-%d %I:%M%p')(new Date(ct));
             });
 		});
-		Deals.getPageDeals($scope.currPage, function(ds) {
+		Products.getrand(function(ds) {
 			$scope.deals = ds;
+            $scope.deals.forEach(function(elem, index, array) {
+                elem.Info = JSON.parse(elem.Info);
+            });
 		});
 	};
 	
@@ -50,7 +53,7 @@ angular.module('featen.article').controller('PageController', ['$scope', '$route
 }]);
 
 
-angular.module('featen.article').controller('ArticleViewController', ['$scope', '$routeParams', '$location', 'Global', 'Articles', 'Deals', function($scope, $routeParams, $location, Global, Articles, Deals) {
+angular.module('featen.article').controller('ArticleViewController', ['$scope', '$routeParams', '$location', 'Global', 'Articles', 'Products', function($scope, $routeParams, $location, Global, Articles, Products) {
         $scope.global = Global;
 
         $scope.getblog = function() {
@@ -65,8 +68,11 @@ angular.module('featen.article').controller('ArticleViewController', ['$scope', 
                 $('#htmlcontentdiv').html(htmlcontent);
             });
             
-            Deals.getPageDeals(1, function(ds) {
+            Products.getrand(function(ds) {
     			$scope.deals = ds;
+                $scope.deals.forEach(function(elem, index, array) {
+                    elem.Info = JSON.parse(elem.Info);
+                });
     		});
         };
     }]);

@@ -38,8 +38,14 @@ angular.module('featen.product').factory("Products", ['$http', 'Alerts', functio
             return promise;
        };
 
-        this.getproduct = function(navname, scall, ecall) {
-            var promise = $http.get("/service/product/" + navname);
+    this.getrand = function(scall, ecall) {
+        var promise = $http.get("/service/product/");
+        Alerts.handle(promise, undefined, undefined, scall, ecall);
+        return promise;
+    };
+
+        this.get= function(name, scall, ecall) {
+            var promise = $http.get("/service/product/" + name);
             var error = {
                 type: "warning",
                 strong: "Warning!",
@@ -56,12 +62,12 @@ angular.module('featen.product').factory("Products", ['$http', 'Alerts', functio
             var error = {
                 type: "error",
                 strong: "Failed!",
-                message: "无法创建新产品，请稍后再试."
+                message: "Add product failed."
             };
             var success = {
                 type: "success",
                 strong: "Success!",
-                message: "产品创建成功."
+                message: "Add product success."
             };
             Alerts.handle(promise, error, success, scall, ecall);
             return promise;
@@ -72,12 +78,12 @@ angular.module('featen.product').factory("Products", ['$http', 'Alerts', functio
             var error = {
                 type: "error",
                 strong: "Failed!",
-                message: "无法修改产品信息，请稍后再试."
+                message: "Update product info failed."
             };
             var success = {
                 type: "success",
                 strong: "Success!",
-                message: "产品信息修改成功."
+                message: "Update product info success."
             };
             Alerts.handle(promise, error, success, scall, ecall);
             return promise;

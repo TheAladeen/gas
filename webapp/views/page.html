@@ -6,13 +6,13 @@
 			<article class="post" data-ng-repeat="article in articles">
 				<div class="entry-header cf">
 					<h1>
-						<a href="#!/blog/{{article.Nav}}">{{article.Info.Title}}</a>
+						<a href="#!/blog/{{article.Info.Nav}}">{{article.Info.Title}}</a>
 					</h1>
 					<time class="date" datetime="2014-01-14T11:24">{{article.Info.CreateTime}}</time>
 				</div>
 
 				<div class="post-thumb">
-					<a href="#!/blog/{{article.Nav}}" title=""><img
+					<a href="#!/blog/{{article.Info.Nav}}" title=""><img
 						ng-src="{{article.Info.CoverPhoto}}"></a>
 				</div>
 
@@ -55,8 +55,8 @@
 						ng-repeat="deal in deals">
 						<div class="columns portfolio-item">
 							<div class="item-wrap">
-								<a href="#!/deal/{{deal.NavName}}"> <img
-									alt="{{deal.EnName}}" ng-src="{{deal.CoverPhoto}}">
+								<a href="#!/deal/{{deal.Info.Name}}"> <img
+									alt="{{deal.Info.Title}}" ng-src="{{deal.Info.CoverPhoto}}">
 									<div class="overlay"></div>
 									<div class="link-icon">
 										<i class="fa fa-link"></i>
@@ -64,9 +64,9 @@
 								</a>
 								<div class="portfolio-item-meta">
 									<h5>
-										<a href="#!/deal/{{deal.NavName}}">{{deal.EnName}}</a>
+										<a href="#!/deal/{{deal.Info.Name}}">{{deal.Info.Title}}</a>
 									</h5>
-									<p><strike>${{deal.Price + deal.Discount}}</strike>   ${{deal.Price}}</p>
+									<p><strike>${{deal.Info.Price + deal.Info.Discount}}</strike>   ${{deal.Info.Price}}</p>
 								</div>
 							</div>
 						</div>

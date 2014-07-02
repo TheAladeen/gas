@@ -3,12 +3,11 @@ package service
 import (
 	"database/sql"
 	"fmt"
-	"github.com/featen/ags/service/agents"
+
 	"github.com/featen/ags/service/articles"
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
 	"github.com/featen/ags/service/dict"
-	"github.com/featen/ags/service/enquires"
 	"github.com/featen/ags/service/products"
 	"github.com/featen/ags/service/reports"
 	"github.com/featen/ags/service/share"
@@ -37,9 +36,6 @@ func createDb() {
 		"CREATE TABLE IF NOT EXISTS user_payment (id integer NOT NULL  PRIMARY KEY, user_id integer, payment_type integer, name_on_card text, card_number text, security_code text)",
 		"CREATE TABLE IF NOT EXISTS user_log (id integer NOT NULL PRIMARY KEY, user_id integer, operation_type text, operation_detail text, operation_time timestamp default current_timestamp)",
 		"CREATE TABLE IF NOT EXISTS user_recover_pass (id integer PRIMARY KEY, email text unique, temp_password text, magic text)",
-		"CREATE TABLE IF NOT EXISTS product (id integer PRIMARY KEY, nav_name varchar unique, status integer, en_name varchar, cn_name varchar, cover_photo varchar, introduction varchar, spec varchar, price real, discount real)",
-		"CREATE TABLE IF NOT EXISTS product_photo (id integer PRIMARY KEY, product_id integer, url string, unique(product_id, url) on conflict replace)",
-		"CREATE TABLE IF NOT EXISTS product_saleurl (id integer PRIMARY KEY, product_id integer, url string, unique(product_id, url) on conflict replace)",
 		"CREATE TABLE IF NOT EXISTS enquires (id integer NOT NULL PRIMARY KEY, status integer, customer_id integer, customer_name text, subject text, message text, employee_id integer, followup text, shipping_address_id integer default 0, create_time timestamp default current_timestamp, last_modify_time timestamp)",
 		"CREATE TABLE IF NOT EXISTS enquire_product (id integer NOT NULL  PRIMARY KEY, enquire_id integer, user_id integer, product_id integer, product_navname text, product_name text, cover_photo text, price real)",
 		"CREATE TABLE IF NOT EXISTS reviewboard (id integer NOT NULL PRIMARY KEY, customer_type integer,  customer_id integer, status integer, product_id integer, product_navname text, product_name text, cover_photo text, price real)",
@@ -54,8 +50,8 @@ func createDb() {
 		}
 	}
 
-	agents.InitTable()
 	articles.InitTable()
+	products.InitTable()
 }
 
 func updateAdminUser() {
@@ -82,8 +78,8 @@ func addAdminUser() {
 
 func RegService() {
 	config.InitConfigs("data/ags.conf")
-	agents.Init()
 	articles.Init()
+	products.Init()
 
 	auth.SetSysMagicNumber([]byte(config.GetValue("SysMagicNumber")))
 	inited := config.IsConfigInited()
@@ -99,8 +95,6 @@ func RegService() {
 	articles.Register()
 	share.Register()
 	products.Register()
-	enquires.Register()
 	reports.Register()
 	dict.Register()
-	agents.Register()
 }
