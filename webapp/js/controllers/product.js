@@ -50,8 +50,9 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
                 StageData.del(savedDataId);
             } else {
                 Products.get(name, function(p) {
-                    $scope.data = p;
-                    $scope.data.Info = JSON.parse($scope.data.Info);
+                    $scope.id = p.Id;
+                    $scope.data = JSON.parse(p.Info);
+ //                   $scope.data.Info = JSON.parse($scope.data.Info);
                 });
             }
             if (uploadedUrlsId !== undefined && uploadedUrlsId !== '') {
@@ -60,9 +61,10 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
                 StageData.Del(uploadedUrlsId);
             }
         } else {
-                Products.get(navname, function(p) {
-                    $scope.data = p;
-                    $scope.data.Info = JSON.parse($scope.data.Info);
+                Products.get(name, function(p) {
+                    $scope.id = p.Id;
+                    $scope.data = JSON.parse(p.Info);
+//                    $scope.data.Info = JSON.parse($scope.data.Info);
                 });
         } 
     };
@@ -74,7 +76,7 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
         $scope.data.Price = price;
         $scope.data.Discount = discount;
 
-        Products.update($scope.data, function(c) {
+        Products.update({"Id":$scope.id, "Info":JSON.stringify($scope.data)}, function(c) {
             $location.path("/products");
         });
     };

@@ -1,7 +1,7 @@
 package user
 
 import (
-	"drug/service/config"
+	"github.com/featen/ags/service/config"
 	"net/http"
 
 	"github.com/emicklei/go-restful"

@@ -58,7 +58,7 @@ angular.module('featen.product').factory("Products", ['$http', 'Alerts', functio
             return promise;
         };
 
-        this.saveproduct = function(data, scall, ecall) {
+        this.update = function(data, scall, ecall) {
             var promise = $http.put("/service/product/", data);
             var error = {
                 type: "error",

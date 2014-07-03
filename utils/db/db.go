@@ -115,7 +115,7 @@ func (infotable InfoTable) UpdateRow(id int64, infostr string) int {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec()
+	_, err = stmt.Exec(infostr)
 	if err != nil {
 		log.Error("%s failed: %v", str, err)
 		return http.StatusInternalServerError
