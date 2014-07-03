@@ -1,4 +1,4 @@
-package products
+package product
 
 import (
 	"fmt"
@@ -26,13 +26,13 @@ var info db.InfoFetcher
 
 func Init() {
 	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"),
-		Tablename: "products",
+		Tablename: "product",
 		Keyattrs:  []string{"Name", "Title"}}
 	info = obj
 }
 
 func InitTable() {
-	log.Info("create table products")
+	log.Info("create table product")
 	info.CreateTable()
 }
 
@@ -47,12 +47,12 @@ func Register() {
 
 	//standard apis
 	ws.Route(ws.GET("/{name}").To(getProduct))
-	ws.Route(ws.POST("").To(addProduct).Filter(auth.AuthEmployeeFilter))
-	ws.Route(ws.PUT("").To(updateProduct).Filter(auth.AuthEmployeeFilter))
-	ws.Route(ws.DELETE("/{id}").To(delProduct).Filter(auth.AuthEmployeeFilter))
+	ws.Route(ws.POST("").To(addProduct).Filter(auth.AuthFilter))
+	ws.Route(ws.PUT("").To(updateProduct).Filter(auth.AuthFilter))
+	ws.Route(ws.DELETE("/{id}").To(delProduct).Filter(auth.AuthFilter))
 
-	ws.Route(ws.GET("/search/{searchtext}/page/{pagenumber}").To(searchProducts).Filter(auth.AuthEmployeeFilter))
-	ws.Route(ws.GET("/search/{searchtext}/count").To(searchProductsCount).Filter(auth.AuthEmployeeFilter))
+	ws.Route(ws.GET("/search/{searchtext}/page/{pagenumber}").To(searchProducts).Filter(auth.AuthFilter))
+	ws.Route(ws.GET("/search/{searchtext}/count").To(searchProductsCount).Filter(auth.AuthFilter))
 	restful.Add(ws)
 }
 

@@ -1,10 +1,11 @@
-package mails
+package mail
 
 import (
-	"github.com/featen/ags/service/config"
-	log "github.com/featen/ags/utils/log"
 	"net/http"
 	"net/smtp"
+
+	"github.com/featen/ags/service/config"
+	log "github.com/featen/ags/utils/log"
 )
 
 var auth smtp.Auth

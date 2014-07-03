@@ -6,9 +6,9 @@
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>meicard . 卡片式设计</title>
-<meta name="description" content="meicard.com card-base design, 卡片, 卡片式设计">
-<meta name="author" content="He Jian Jun, jason at meicard.com">
+<title>featen admin portal</title>
+<meta name="description" content="featen.com">
+<meta name="author" content="He JianJun">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="/sparrow/css/default.css">
@@ -37,7 +37,7 @@
 		<div class="row">
 			<div class="twelve columns">
 				<div class="logo">
-					<a data-ng-href="#!/"><font size="32" color="white">meicard</font></a>
+					<a data-ng-href="#!/"><font size="32" color="white">featen</font></a>
 				</div>
 
 				<nav id="nav-wrap">
@@ -45,35 +45,24 @@
 	            	<a class="mobile-btn" href="#" target="_self" title="Hide navigation">Hide navigation</a>
 
 					<ul id="nav" class="nav" data-ng-controller="UsersCtrl" data-ng-init="init()">
-                        <li data-ng-hide="global.isemployee"><a data-ng-href="#!/blog">BLOG</a>
-                        <li data-ng-hide="global.isemployee"><a data-ng-href="#!/dict">英汉词典</a>
-                        </li>
-                        <li data-ng-show="global.isemployee"><span><a data-ng-href="#!/customers" >Customers</a></span>
+                        <li data-ng-show="global.authenticated"><span><a data-ng-href="#!/customers" >Customers</a></span>
 	                        <ul>
 	                        	<li><a data-ng-href="#!/addcustomer">Add Customer</a></li>
 							</ul>
 						</li>
-                        <li data-ng-show="global.isemployee"><span><a data-ng-href="#!/products">Products</a></span>
+                        <li data-ng-show="global.authenticated"><span><a data-ng-href="#!/products">Products</a></span>
                         	<ul>
                         		<li><a data-ng-href="#!/addproduct">Add Product</a></li>
                         	</ul>
                         </li>
-                        <li data-ng-show="global.isemployee"><a data-ng-href="#!/enquires">Enquires</a></li>
-                        <li data-ng-show="global.isemployee"><a data-ng-href="#!/reports">Reports</a></li>
-                        <li data-ng-show="global.isemployee"><a data-ng-href="#!/writeblog">Write Blog</a></li>
+                        <li data-ng-show="global.authenticated"><a data-ng-href="#!/writeblog">Articles</a></li>
 
-						<li data-ng-show="global.authenticated"><span><a data-ng-href='#!/profile' >{{global.user.Email}}</a></span>
-							<ul>
-								<li><a data-ng-href="#!/myinfo">Update Information</a>
-								<li><a data-ng-href="#!/mypassword">Change Password</a>
-                                <li><a data-ng-href="#!/myaddress">Change Address</a>
-								<li><a data-ng-href="#!/myreviewboard">My Reviewboard</a>
+						<li data-ng-show="global.authenticated"><span><a data-ng-href='#!/profile' >{{global.user}}</a></span>
 								<li><a data-ng-href="#!/" data-ng-click="signout()" >Sign Out</a></li>
 							</ul>
 						</li>
 
 						<li data-ng-hide="global.authenticated"><a data-ng-href="#!/signin" >Sign In</a></li>
-						<li data-ng-hide="global.authenticated"><a data-ng-href="#!/signup">Sign Up</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -112,7 +101,7 @@
             </ul>
 
             <ul class="copyright">
-               <li>Copyright &copy; 2014 meicard.    Template by <a href="http://www.styleshout.com">Styleshout</a></li>
+               <li>Copyright &copy; 2014 featen.    Template by <a href="http://www.styleshout.com">Styleshout</a></li>
             </ul>
          </div>
          <div id="go-top" style="display: block;"><a title="Back to Top" href="#">Go To Top</a></div>
@@ -165,34 +154,20 @@
 	<script type="text/javascript" src="/js/services/share.js"></script>
 	<script type="text/javascript" src="/js/services/product.js"></script>
 	<script type="text/javascript" src="/js/services/customer.js"></script>
-	<script type="text/javascript" src="/js/services/enquire.js"></script>
 	<script type="text/javascript" src="/js/services/report.js"></script>
-	<script type="text/javascript" src="/js/services/deal.js"></script>
-    <script type="text/javascript" src="/js/services/dict.js"></script>
-    <script type="text/javascript" src="/js/services/agent.js"></script>
 
 	<script type="text/javascript" src="/js/controllers/index.js"></script>
 	<script type="text/javascript" src="/js/controllers/alerts.js"></script>
-	<script type="text/javascript" src="/js/controllers/users.js"></script>
+	<script type="text/javascript" src="/js/controllers/user.js"></script>
 	<script type="text/javascript" src="/js/controllers/article.js"></script>
 	<script type="text/javascript" src="/js/controllers/share.js"></script>
 	<script type="text/javascript" src="/js/controllers/product.js"></script>
 	<script type="text/javascript" src="/js/controllers/customer.js"></script>
-	<script type="text/javascript" src="/js/controllers/enquire.js"></script>
-	<script type="text/javascript" src="/js/controllers/report.js"></script>
-	<script type="text/javascript" src="/js/controllers/deal.js"></script>
-    <script type="text/javascript" src="/js/controllers/dict.js"></script>
-    <script type="text/javascript" src="/js/controllers/agent.js"></script>
-	<script type="text/javascript" src="/js/controllers/reviewboard.js"></script>
 
 
 	<script type="text/javascript" src="/js/init.js"></script>
 
 	<!-- Markdown  -->
 	<script defer type="text/javascript" src="/lib/marked.js"></script>
-
-
-	<!-- google adsense -->
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </body>
 </html>

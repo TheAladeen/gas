@@ -1,24 +1,10 @@
 angular.module('featen.article').factory("Articles", ['$http', 'Alerts', function($http, Alerts) {
-        // Get all lists.
-        this.getall = function(scall, ecall) {
-            var promise = $http.get("/service/articles/");
+        this.get= function(name, scall, ecall) {
+            var promise = $http.get("/service/article/" + name);
             var error = {
                 type: "warning",
                 strong: "Warning!",
-                message: "Cannot get all articles, please try it later."
-            };
-            Alerts.handle(promise, error, undefined, scall, ecall);
-
-            return promise;
-        };
-
-
-        this.get= function(nav, scall, ecall) {
-            var promise = $http.get("/service/articles/name/" + nav);
-            var error = {
-                type: "warning",
-                strong: "Warning!",
-                message: "Cannot get all articles, please try it later."
+                message: "Cannot get this blog."
             };
             Alerts.handle(promise, error, undefined, scall, ecall);
 
@@ -26,7 +12,7 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
         };
         
         this.getPageArticles = function(page, scall, ecall) {
-        	var promise = $http.get("/service/articles/page/" + page);
+        	var promise = $http.get("/service/article/page/" + page);
         	var error = {
         			type: "warning",
         			strong: "Warning!",
@@ -37,7 +23,7 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
         };
         
         this.getTotalPageNumber = function(scall, ecall) {
-        	var promise = $http.get("/service/articles/totalpage/number");
+        	var promise = $http.get("/service/article/totalpagenumber");
         	var error = {
         			type: "warning",
         			strong: "Warning!",
@@ -48,11 +34,11 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
         };
 
         this.create = function(data, scall, ecall) {
-            var promise = $http.post("/service/articles/", data);
+            var promise = $http.post("/service/article/", data);
             var error = {
                 type: "error",
                 strong: "Failed!",
-                message: "Cannot create article right now, please check your input."
+                message: "Cannot create article right now."
             };
             var success = {
                 type: "success",
@@ -65,7 +51,7 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
         };
 
         this.save = function(data, scall, ecall) {
-            var promise = $http.put("/service/articles/" + data.Id, data);
+            var promise = $http.put("/service/article/", data);
             var error = {
                 type: "info",
                 strong: "Failed!",
@@ -79,7 +65,7 @@ angular.module('featen.article').factory("Articles", ['$http', 'Alerts', functio
         this.del = function(data, scall, ecall) {
             var promise = $http({
                 method: 'DELETE',
-                url: "/service/articles/" + data.Id}
+                url: "/service/article/" + data.Id}
             );
             var error = {
                 type: "error",

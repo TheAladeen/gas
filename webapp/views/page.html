@@ -6,13 +6,13 @@
 			<article class="post" data-ng-repeat="article in articles">
 				<div class="entry-header cf">
 					<h1>
-						<a href="#!/blog/{{article.Info.Nav}}">{{article.Info.Title}}</a>
+						<a href="#!/blog/{{article.Info.Name}}">{{article.Info.Title}}</a>
 					</h1>
 					<time class="date" datetime="2014-01-14T11:24">{{article.Info.CreateTime}}</time>
 				</div>
 
 				<div class="post-thumb">
-					<a href="#!/blog/{{article.Info.Nav}}" title=""><img
+					<a href="#!/blog/{{article.Info.Name}}" title=""><img
 						ng-src="{{article.Info.CoverPhoto}}"></a>
 				</div>
 

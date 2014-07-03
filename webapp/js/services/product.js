@@ -1,19 +1,4 @@
 angular.module('featen.product').factory("Products", ['$http', 'Alerts', function($http, Alerts) {
-
-
-        // Get all lists.
-        this.getall = function( scall, ecall) {
-            var promise = $http.get("/service/product");
-            var error = {
-                type: "warning",
-                strong: "Warning!",
-                message: "Unable to retrieve all products. Try again in a few minutes."
-            };
-            Alerts.handle(promise, error, undefined, scall, ecall);
-
-            return promise;
-        };
-
         this.searchcount = function(searchtext, scall, ecall) {
        	 var promise = $http.get("/service/product/search/" + searchtext + "/count");
             var error = {
@@ -38,18 +23,18 @@ angular.module('featen.product').factory("Products", ['$http', 'Alerts', functio
             return promise;
        };
 
-    this.getrand = function(scall, ecall) {
-        var promise = $http.get("/service/product/");
-        Alerts.handle(promise, undefined, undefined, scall, ecall);
-        return promise;
-    };
+        this.getrand = function(scall, ecall) {
+                var promise = $http.get("/service/product/");
+                Alerts.handle(promise, undefined, undefined, scall, ecall);
+                return promise;
+        };
 
         this.get= function(name, scall, ecall) {
             var promise = $http.get("/service/product/" + name);
             var error = {
                 type: "warning",
                 strong: "Warning!",
-                message: "Unable to retrieve products information. Try again in a few minutes."
+                message: "Sorry, unable to retrieve products information."
             };
             Alerts.handle(promise, error, undefined, scall, ecall);
 

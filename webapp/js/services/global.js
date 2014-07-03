@@ -2,11 +2,7 @@ angular.module('featen.system').factory("Global", [function() {
         var _this = this;
         _this._data = {
             user: window.user,
-            employee: window.employee,
             authenticated: !!window.user,
-            //employee: false
-            isemployee: !!window.employee,
-            notemployee: !window.employee
         };
 
         return _this._data;
