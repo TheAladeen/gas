@@ -20,7 +20,7 @@ type SearchCount struct {
 }
 
 const productPageLimit = 10
-const randProducts = "2"
+const randProducts = "1"
 
 var info db.InfoFetcher
 

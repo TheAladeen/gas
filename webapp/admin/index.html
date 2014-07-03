@@ -6,14 +6,15 @@
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>featen</title>
-<meta name="description" content="featen.com">
-<meta name="author" content="He JianJun">
+<title>meicard . 卡片式设计</title>
+<meta name="description" content="meicard.com card-base design, 卡片, 卡片式设计">
+<meta name="author" content="He Jian Jun, jason at meicard.com">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="/sparrow/css/default.css">
 <link rel="stylesheet" href="/sparrow/css/layout.css">
 <link rel="stylesheet" href="/sparrow/css/media-queries.css">
+<link rel="stylesheet" href="/css/nv.d3.css">
 <link rel="stylesheet" href="/sparrow/css/ags.css">
 
 <script type="text/javascript" src="/sparrow/js/modernizr.js"></script>
@@ -36,8 +37,45 @@
 		<div class="row">
 			<div class="twelve columns">
 				<div class="logo">
-					<a data-ng-href="#!/"><font size="32" color="white">featen</font></a>
+					<a data-ng-href="#!/"><font size="32" color="white">meicard</font></a>
 				</div>
+
+				<nav id="nav-wrap">
+					<a class="mobile-btn" href="#nav-wrap" target="_self" title="Show navigation">Show navigation</a>
+	            	<a class="mobile-btn" href="#" target="_self" title="Hide navigation">Hide navigation</a>
+
+					<ul id="nav" class="nav" data-ng-controller="UsersCtrl" data-ng-init="init()">
+                        <li data-ng-hide="global.isemployee"><a data-ng-href="#!/blog">BLOG</a>
+                        <li data-ng-hide="global.isemployee"><a data-ng-href="#!/dict">英汉词典</a>
+                        </li>
+                        <li data-ng-show="global.isemployee"><span><a data-ng-href="#!/customers" >Customers</a></span>
+	                        <ul>
+	                        	<li><a data-ng-href="#!/addcustomer">Add Customer</a></li>
+							</ul>
+						</li>
+                        <li data-ng-show="global.isemployee"><span><a data-ng-href="#!/products">Products</a></span>
+                        	<ul>
+                        		<li><a data-ng-href="#!/addproduct">Add Product</a></li>
+                        	</ul>
+                        </li>
+                        <li data-ng-show="global.isemployee"><a data-ng-href="#!/enquires">Enquires</a></li>
+                        <li data-ng-show="global.isemployee"><a data-ng-href="#!/reports">Reports</a></li>
+                        <li data-ng-show="global.isemployee"><a data-ng-href="#!/writeblog">Write Blog</a></li>
+
+						<li data-ng-show="global.authenticated"><span><a data-ng-href='#!/profile' >{{global.user.Email}}</a></span>
+							<ul>
+								<li><a data-ng-href="#!/myinfo">Update Information</a>
+								<li><a data-ng-href="#!/mypassword">Change Password</a>
+                                <li><a data-ng-href="#!/myaddress">Change Address</a>
+								<li><a data-ng-href="#!/myreviewboard">My Reviewboard</a>
+								<li><a data-ng-href="#!/" data-ng-click="signout()" >Sign Out</a></li>
+							</ul>
+						</li>
+
+						<li data-ng-hide="global.authenticated"><a data-ng-href="#!/signin" >Sign In</a></li>
+						<li data-ng-hide="global.authenticated"><a data-ng-href="#!/signup">Sign Up</a></li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</header>
@@ -74,7 +112,7 @@
             </ul>
 
             <ul class="copyright">
-               <li>Copyright &copy; 2014 featen.    Template by <a href="http://www.styleshout.com">Styleshout</a></li>
+               <li>Copyright &copy; 2014 meicard.    Template by <a href="http://www.styleshout.com">Styleshout</a></li>
             </ul>
          </div>
          <div id="go-top" style="display: block;"><a title="Back to Top" href="#">Go To Top</a></div>
@@ -105,26 +143,56 @@
 
 	<!-- nvd3 -->
 	<script defer type="text/javascript" src="/lib/nvd3/d3.v3.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/nv.d3.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/tooltip.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/utils.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/legend.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/axis.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/scatter.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/line.js"></script>
+	<script defer type="text/javascript" src="/lib/nvd3/lineChart.js"></script>
 
 	<!-- APP JS -->
 	<script type="text/javascript" src="/js/app.js"></script>
 	<script type="text/javascript" src="/js/filters.js"></script>
 	<script type="text/javascript" src="/js/directives.js"></script>
-	<script type="text/javascript" src="/js/config.js"></script>
+	<script type="text/javascript" src="/js/admin_config.js"></script>
 
 	<script type="text/javascript" src="/js/services/global.js"></script>
 	<script type="text/javascript" src="/js/services/alerts.js"></script>
+	<script type="text/javascript" src="/js/services/user.js"></script>
 	<script type="text/javascript" src="/js/services/article.js"></script>
+	<script type="text/javascript" src="/js/services/share.js"></script>
 	<script type="text/javascript" src="/js/services/product.js"></script>
+	<script type="text/javascript" src="/js/services/customer.js"></script>
+	<script type="text/javascript" src="/js/services/enquire.js"></script>
+	<script type="text/javascript" src="/js/services/report.js"></script>
+	<script type="text/javascript" src="/js/services/deal.js"></script>
     <script type="text/javascript" src="/js/services/dict.js"></script>
+    <script type="text/javascript" src="/js/services/agent.js"></script>
 
+	<script type="text/javascript" src="/js/controllers/index.js"></script>
 	<script type="text/javascript" src="/js/controllers/alerts.js"></script>
-    <script type="text/javascript" src="/js/controllers/front.js"></script>
+	<script type="text/javascript" src="/js/controllers/users.js"></script>
+	<script type="text/javascript" src="/js/controllers/article.js"></script>
+	<script type="text/javascript" src="/js/controllers/share.js"></script>
+	<script type="text/javascript" src="/js/controllers/product.js"></script>
+	<script type="text/javascript" src="/js/controllers/customer.js"></script>
+	<script type="text/javascript" src="/js/controllers/enquire.js"></script>
+	<script type="text/javascript" src="/js/controllers/report.js"></script>
+	<script type="text/javascript" src="/js/controllers/deal.js"></script>
+    <script type="text/javascript" src="/js/controllers/dict.js"></script>
+    <script type="text/javascript" src="/js/controllers/agent.js"></script>
+	<script type="text/javascript" src="/js/controllers/reviewboard.js"></script>
 
 
 	<script type="text/javascript" src="/js/init.js"></script>
 
 	<!-- Markdown  -->
 	<script defer type="text/javascript" src="/lib/marked.js"></script>
+
+
+	<!-- google adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </body>
 </html>
