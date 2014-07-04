@@ -6,13 +6,13 @@
 			<article class="post" data-ng-repeat="article in articles">
 				<div class="entry-header cf">
 					<h1>
-						<a href="#!/blog/{{article.Info.Name}}">{{article.Info.Title}}</a>
+						<a href="#/blog/{{article.Id}}">{{article.Info.Title}}</a>
 					</h1>
 					<time class="date" datetime="2014-01-14T11:24">{{article.Info.CreateTime}}</time>
 				</div>
 
 				<div class="post-thumb">
-					<a href="#!/blog/{{article.Info.Name}}" title=""><img
+					<a href="#/blog/{{article.Id}}" title=""><img
 						ng-src="{{article.Info.CoverPhoto}}"></a>
 				</div>
 
@@ -24,25 +24,25 @@
 
 			<nav class="col full pagination">
 				<ul>
-					<li><a ng-href="#!/page/1" class="page-numbers prev">First</a></li>
+					<li><a ng-href="#/page/1" class="page-numbers prev">First</a></li>
 					<li ng-show="{{currPage - 1 >= 1}}"><a
-						ng-href="#!/page/{{currPage-1}}" class="page-numbers prev">Prev</a></li>
+						ng-href="#/page/{{currPage-1}}" class="page-numbers prev">Prev</a></li>
 					<li ng-show="{{currPage - 2 >= 1}}"><a
-						ng-href="#!/page/{{currPage-2}}" class="page-numbers">{{currPage
+						ng-href="#/page/{{currPage-2}}" class="page-numbers">{{currPage
 							- 2}}</a></li>
 					<li ng-show="{{currPage - 1 >= 1}}"><a
-						ng-href="#!/page/{{currPage-1}}" class="page-numbers">{{currPage
+						ng-href="#/page/{{currPage-1}}" class="page-numbers">{{currPage
 							- 1}}</a></li>
 					<li><span class="page-numbers current">{{currPage}}</span></li>
 					<li ng-hide="totalPageNumber - currPage < 1"><a
-						ng-href="#!/page/{{currPage+1}}" class="page-numbers">{{currPage
+						ng-href="#/page/{{currPage+1}}" class="page-numbers">{{currPage
 							+ 1}}</a></li>
 					<li ng-hide="totalPageNumber - currPage < 2"><a
-						ng-href="#!/page/{{currPage+2}}" class="page-numbers">{{currPage
+						ng-href="#/page/{{currPage+2}}" class="page-numbers">{{currPage
 							+ 2}}</a></li>
 					<li ng-hide="totalPageNumber - currPage < 1"><a
-						ng-href="#!/page/{{currPage+1}}" class="page-numbers next">Next</a></li>
-					<li><a ng-href="#!/page/{{totalPageNumber}}"
+						ng-href="#/page/{{currPage+1}}" class="page-numbers next">Next</a></li>
+					<li><a ng-href="#/page/{{totalPageNumber}}"
 						class="page-numbers next">Last</a></li>
 				</ul>
 			</nav>
@@ -55,7 +55,7 @@
 						ng-repeat="deal in deals">
 						<div class="columns portfolio-item">
 							<div class="item-wrap">
-								<a href="#!/deal/{{deal.Info.Name}}"> <img
+								<a href="#/deal/{{deal.Id}}"> <img
 									alt="{{deal.Info.Title}}" ng-src="{{deal.Info.CoverPhoto}}">
 									<div class="overlay"></div>
 									<div class="link-icon">
@@ -64,7 +64,7 @@
 								</a>
 								<div class="portfolio-item-meta">
 									<h5>
-										<a href="#!/deal/{{deal.Info.Name}}">{{deal.Info.Title}}</a>
+										<a href="#/deal/{{deal.Id}}">{{deal.Info.Title}}</a>
 									</h5>
 									<p><strike>${{deal.Info.Price + deal.Info.Discount}}</strike>   ${{deal.Info.Price}}</p>
 								</div>

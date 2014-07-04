@@ -23,7 +23,7 @@
 						data-ng-repeat="deal in deals">
 						<div class="columns portfolio-item">
 							<div class="item-wrap">
-								<a href="#!/deal/{{deal.Info.Name}}"> <img
+								<a href="#/deal/{{deal.Id}}"> <img
 									alt="{{deal.Info.Title}}" data-ng-src="{{deal.CoverPhoto}}">
 									<div class="overlay"></div>
 									<div class="link-icon">
@@ -32,7 +32,7 @@
 								</a>
 								<div class="portfolio-item-meta">
 									<h5>
-										<a href="#!/deal/{{deal.Info.Name}}">{{deal.Info.Title}}</a>
+										<a href="#/deal/{{deal.Id}}">{{deal.Info.Title}}</a>
 									</h5>
 									<p><del>${{deal.Info.Price + deal.Info.Discount}}</del>   ${{deal.Info.Price}}</p>
 								</div>

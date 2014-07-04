@@ -27,7 +27,7 @@ var info db.InfoFetcher
 func Init() {
 	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"),
 		Tablename: "product",
-		Keyattrs:  []string{"Name", "Title"}}
+		Keyattrs:  []string{"Title"}}
 	info = obj
 }
 
@@ -46,7 +46,7 @@ func Register() {
 	ws.Route(ws.GET("").To(getRandomProducts))
 
 	//standard apis
-	ws.Route(ws.GET("/{name}").To(getProduct))
+	ws.Route(ws.GET("/{id}").To(getProduct))
 	ws.Route(ws.POST("").To(addProduct).Filter(auth.AuthFilter))
 	ws.Route(ws.PUT("").To(updateProduct).Filter(auth.AuthFilter))
 	ws.Route(ws.DELETE("/{id}").To(delProduct).Filter(auth.AuthFilter))
@@ -65,7 +65,7 @@ func searchProducts(req *restful.Request, resp *restful.Response) {
 	}
 
 	offset := productPageLimit * (p - 1)
-	all, ret := info.SelectRows(fmt.Sprintf(" status=1 AND Name like '%%%s%%' order by id limit %d offset %d", t, productPageLimit, offset))
+	all, ret := info.SelectRows(fmt.Sprintf(" status=1 AND Title like '%%%s%%' order by id limit %d offset %d", t, productPageLimit, offset))
 	if ret == http.StatusOK && len(all) > 0 {
 		for i := 0; i < len(all); i++ {
 			db.VoidAttr(&all[i], "Spec", "Introduction")
@@ -78,7 +78,7 @@ func searchProducts(req *restful.Request, resp *restful.Response) {
 
 func searchProductsCount(req *restful.Request, resp *restful.Response) {
 	t := req.PathParameter("searchtext")
-	n, ret := info.SelectRowsCount(fmt.Sprintf(" status=1 AND Name like '%%%s%%' ", t))
+	n, ret := info.SelectRowsCount(fmt.Sprintf(" status=1 AND Title like '%%%s%%' ", t))
 	if ret == http.StatusOK {
 		resp.WriteEntity(SearchCount{n, productPageLimit})
 	} else {
@@ -101,7 +101,7 @@ func getRandomProducts(req *restful.Request, resp *restful.Response) {
 			resp.WriteErrorString(ret, http.StatusText(ret))
 		}
 	} else {
-		resp.WriteErrorString(ret, http.StatusText(ret))
+		resp.WriteHeader(http.StatusNotFound)
 	}
 }
 

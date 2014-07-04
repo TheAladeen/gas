@@ -46,7 +46,7 @@ angular.module('featen.article').controller('ArticleEditController', ['$scope', 
         };
       
         $scope.create = function() {
-            Articles.create({"Info":JSON.stringify({"Title": $scope.data.title, "Name": $scope.data.navname.replace(/ /g,"-"), "CoverPhoto": $scope.data.coverphoto, "Intro": $scope.data.intro, "Content": $scope.data.content, "CreateTime": Date.now()})}, function(l) {
+            Articles.create({"Info":JSON.stringify({"Title": $scope.data.title, "CoverPhoto": $scope.data.coverphoto, "Intro": $scope.data.intro, "Content": $scope.data.content, "CreateTime": Date.now()})}, function(l) {
                 $location.path('/');
             });
         }; 

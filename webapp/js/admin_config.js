@@ -21,44 +21,24 @@ window.app.config(['$routeProvider',
                     templateUrl: '/views/products.html'
                 }).
                 when('/addproduct', {
-                    templateUrl: '/views/addproduct.html'
+					controller: 'ProductAddController',
+                    templateUrl: '/views/editproduct.html'
                 }).
                 when('/addproduct/savedid/:SavedDataId/uploaded/:UploadedUrls', {
-                    templateUrl: '/views/addproduct.html'
-                }).
-                when('/product/:Name', {
+					controller: 'ProductAddController',
                     templateUrl: '/views/editproduct.html'
                 }).
-                when('/product/:Name/savedid/:SavedDataId/uploaded/:UploadedUrls', {
+                when('/product/:id', {
+					controller: 'ProductEditController',
                     templateUrl: '/views/editproduct.html'
                 }).
-                when('/addcustomer', {
-                    templateUrl: '/views/addcustomer.html'
-                }).
-                when('/addcustomer/savedid/:SavedDataId/uploaded/:UploadedUrls', {
-                    templateUrl: '/views/addcustomer.html'
-                }).
-                when('/customers', {
-                    templateUrl: '/views/customers.html'
-                }).
-                when('/customer/:Id', {
-                    templateUrl: '/views/editcustomer.html'
-                }).
-                when('/customer/:Id/savedid/:SavedDataId/uploaded/:UploadedUrlsId', {
-                    templateUrl: '/views/editcustomer.html'
-                }).
-                when('/', {
-                    templateUrl: '/views/customers.html'
+                when('/product/:id/savedid/:SavedDataId/uploaded/:UploadedUrls', {
+					controller: 'ProductEditController',
+                    templateUrl: '/views/editproduct.html'
                 }).
                 otherwise({
-                    redirectTo: '/'
+                    redirectTo: '/products'
                 });
     }
 ]);
 
-//Setting HTML5 Location Mode
-window.app.config(['$locationProvider',
-    function($locationProvider) {
-        $locationProvider.hashPrefix("!");
-    }
-]);

@@ -37,7 +37,7 @@
 		<div class="row">
 			<div class="twelve columns">
 				<div class="logo">
-					<a data-ng-href="#!/"><font size="32" color="white">featen</font></a>
+					<a data-ng-href="#/"><font size="32" color="white">featen</font></a>
 				</div>
 
 				<nav id="nav-wrap">
@@ -45,24 +45,20 @@
 	            	<a class="mobile-btn" href="#" target="_self" title="Hide navigation">Hide navigation</a>
 
 					<ul id="nav" class="nav" data-ng-controller="UsersCtrl" data-ng-init="init()">
-                        <li data-ng-show="global.authenticated"><span><a data-ng-href="#!/customers" >Customers</a></span>
-	                        <ul>
-	                        	<li><a data-ng-href="#!/addcustomer">Add Customer</a></li>
-							</ul>
-						</li>
-                        <li data-ng-show="global.authenticated"><span><a data-ng-href="#!/products">Products</a></span>
+                        <li data-ng-show="global.authenticated"><span><a data-ng-href="#/products">Products</a></span>
                         	<ul>
-                        		<li><a data-ng-href="#!/addproduct">Add Product</a></li>
+                        		<li><a data-ng-href="#/addproduct">Add Product</a></li>
                         	</ul>
                         </li>
-                        <li data-ng-show="global.authenticated"><a data-ng-href="#!/writeblog">Articles</a></li>
+                        <li data-ng-show="global.authenticated"><a data-ng-href="#/writeblog">Articles</a></li>
 
-						<li data-ng-show="global.authenticated"><span><a data-ng-href='#!/profile' >{{global.user}}</a></span>
-								<li><a data-ng-href="#!/" data-ng-click="signout()" >Sign Out</a></li>
+						<li data-ng-show="global.authenticated"><span>{{global.user}}</span>
+                            <ul>
+								<li><a data-ng-href="#/" data-ng-click="signout()" >Sign Out</a></li>
 							</ul>
 						</li>
 
-						<li data-ng-hide="global.authenticated"><a data-ng-href="#!/signin" >Sign In</a></li>
+						<li data-ng-hide="global.authenticated"><a data-ng-href="#/signin" >Sign In</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -123,23 +119,15 @@
 	<script src="/sparrow/js/doubletaptogo.js"></script>
 	<script src="/sparrow/js/init.js"></script>
 
-	<!-- jquery data table -->
+	<!-- jquery data table 
 	<script src="/lib/jquery.dataTables.js"></script>
 	<script src="/lib/jquery.dataTables.bootstrap.js"></script>
-
+    -->
 	<!-- base64 -->
 	<script src="/lib/base64.js"></script>
 
 	<!-- nvd3 -->
 	<script defer type="text/javascript" src="/lib/nvd3/d3.v3.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/nv.d3.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/tooltip.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/utils.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/legend.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/axis.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/scatter.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/line.js"></script>
-	<script defer type="text/javascript" src="/lib/nvd3/lineChart.js"></script>
 
 	<!-- APP JS -->
 	<script type="text/javascript" src="/js/app.js"></script>
@@ -153,7 +141,6 @@
 	<script type="text/javascript" src="/js/services/article.js"></script>
 	<script type="text/javascript" src="/js/services/share.js"></script>
 	<script type="text/javascript" src="/js/services/product.js"></script>
-	<script type="text/javascript" src="/js/services/customer.js"></script>
 	<script type="text/javascript" src="/js/services/report.js"></script>
 
 	<script type="text/javascript" src="/js/controllers/index.js"></script>
@@ -162,7 +149,6 @@
 	<script type="text/javascript" src="/js/controllers/article.js"></script>
 	<script type="text/javascript" src="/js/controllers/share.js"></script>
 	<script type="text/javascript" src="/js/controllers/product.js"></script>
-	<script type="text/javascript" src="/js/controllers/customer.js"></script>
 
 
 	<script type="text/javascript" src="/js/init.js"></script>

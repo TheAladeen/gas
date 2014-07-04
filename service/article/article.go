@@ -18,7 +18,7 @@ const pageArticlesLimit = 5
 var info db.InfoFetcher
 
 func Init() {
-	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "article", Keyattrs: []string{"Name", "Title"}}
+	obj := db.InfoTable{Dbfile: config.GetValue("DbFile"), Tablename: "article", Keyattrs: []string{"Title"}}
 	info = obj
 }
 
@@ -35,7 +35,7 @@ func Register() {
 		Consumes(restful.MIME_JSON, restful.MIME_XML).
 		Produces(restful.MIME_JSON, restful.MIME_XML)
 
-	ws.Route(ws.GET("/{name}").To(getArticle))
+	ws.Route(ws.GET("/{id}").To(getArticle))
 	ws.Route(ws.PUT("").To(updateArticle).Filter(auth.AuthFilter))
 	ws.Route(ws.POST("").To(addArticle).Filter(auth.AuthFilter))
 	ws.Route(ws.DELETE("/{id}").To(delArticle).Filter(auth.AuthFilter))

@@ -2,8 +2,6 @@ angular.module('featen.article').controller('PageController', ['$scope', '$route
 	$scope.currPage = 1;
 	
 	$scope.getPageArticles = function() {
-		(adsbygoogle = window.adsbygoogle || []).push({});
-
 		var p = parseInt($routeParams.PageNum);
 		if (p != undefined && (p >= 1))
 			$scope.currPage = p; 
@@ -50,10 +48,9 @@ angular.module('featen.article').controller('ArticleViewController', ['$scope', 
         $scope.global = Global;
 
         $scope.getblog = function() {
-		(adsbygoogle = window.adsbygoogle || []).push({});
-            var nav= $routeParams.Nav;
+            var id = $routeParams.id;
 
-            Articles.get(nav, function(a) {
+            Articles.get(id, function(a) {
                 $scope.article = a;
                 $scope.info = JSON.parse(a.Info);
                 $scope.info.CreateTime = d3.time.format('%Y-%m-%d %I:%M%p')(new Date($scope.info.CreateTime));
@@ -90,8 +87,8 @@ angular.module('featen.deal').controller('DealsController', ['$scope', '$routePa
     };
 
     $scope.load = function() {
-        var name = $routeParams.Name;
-        Products.get(name, function(p) {
+        var id = $routeParams.id;
+        Products.get(id, function(p) {
             $scope.deal = p;
             $scope.deal.Info = JSON.parse($scope.deal.Info);
             $scope.photos = $scope.deal.Info.Photos;

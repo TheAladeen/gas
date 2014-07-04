@@ -7,7 +7,6 @@ import (
 	"github.com/featen/ags/service/article"
 	"github.com/featen/ags/service/auth"
 	"github.com/featen/ags/service/config"
-	"github.com/featen/ags/service/customer"
 	"github.com/featen/ags/service/dict"
 	"github.com/featen/ags/service/product"
 	"github.com/featen/ags/service/share"
@@ -38,14 +37,12 @@ func createDb() {
 
 	article.InitTable()
 	product.InitTable()
-	customer.InitTable()
 }
 
 func RegService() {
 	config.InitConfigs("data/ags.conf")
 	article.Init()
 	product.Init()
-	customer.Init()
 
 	auth.SetSysMagicNumber([]byte(config.GetValue("SysMagicNumber")))
 	inited := config.IsConfigInited()
@@ -55,7 +52,6 @@ func RegService() {
 	}
 
 	user.Register()
-	customer.Register()
 	article.Register()
 	share.Register()
 	product.Register()

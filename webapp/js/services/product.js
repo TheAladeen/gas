@@ -29,8 +29,8 @@ angular.module('featen.product').factory("Products", ['$http', 'Alerts', functio
                 return promise;
         };
 
-        this.get= function(name, scall, ecall) {
-            var promise = $http.get("/service/product/" + name);
+        this.get= function(id, scall, ecall) {
+            var promise = $http.get("/service/product/" + id);
             var error = {
                 type: "warning",
                 strong: "Warning!",

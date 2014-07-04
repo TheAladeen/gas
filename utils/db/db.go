@@ -60,10 +60,10 @@ func VoidAttr(obj *InfoObject, attrs ...string) int {
 }
 
 func (infotable InfoTable) CreateTable() int {
-	fmt.Println(infotable.Dbfile)
 	dbHandler, err := sql.Open("sqlite3", infotable.Dbfile)
 	if err != nil {
-		fmt.Println("dbHandler failed", err)
+		log.Fatal("dbHandler failed %v", err)
+		return http.StatusInternalServerError
 	}
 	defer dbHandler.Close()
 
@@ -72,11 +72,10 @@ func (infotable InfoTable) CreateTable() int {
 		keys += fmt.Sprint(", ", v, " text")
 	}
 	s := "create table if not exists " + infotable.Tablename + " (id integer NOT NULL PRIMARY KEY, status int default 1, info text " + keys + ")"
-
-	fmt.Println(s)
 	_, err = dbHandler.Exec(s)
 	if err != nil {
-		fmt.Println("%q: %s\n", err, s)
+		log.Fatal("failed %v:\n%s", err, s)
+		return http.StatusInternalServerError
 	}
 	return http.StatusOK
 }
@@ -154,7 +153,7 @@ func (infotable InfoTable) InsertRow(infostr string) (int64, int) {
 
 	err := json.Unmarshal([]byte(infostr), &m)
 	if err != nil {
-		fmt.Println("error:", err)
+		log.Fatal("error: %v", err)
 		return 0, http.StatusBadRequest
 	}
 
@@ -221,13 +220,11 @@ func (infotable InfoTable) SelectRows(sqlstr string) ([]InfoObject, int) {
 		var id, status sql.NullInt64
 		rows.Scan(&id, &status, &info)
 
-		fmt.Println("one row found")
 		all = append(all, InfoObject{id.Int64, status.Int64, info.String})
 	}
 	if len(all) == 0 {
 		return nil, http.StatusNotFound
 	}
-	fmt.Println("total rows", len(all))
 
 	return all, http.StatusOK
 }
@@ -259,8 +256,8 @@ func (infotable InfoTable) SelectRowsCount(sqlstr string) (int64, int) {
 }
 
 func (infotable InfoTable) Get(req *restful.Request, resp *restful.Response) {
-	name := req.PathParameter("name")
-	all, ret := infotable.SelectRows(" status=1 AND Name='" + name + "'")
+	id := req.PathParameter("id")
+	all, ret := infotable.SelectRows(" status=1 AND id='" + id + "'")
 	if ret == http.StatusOK && len(all) == 1 {
 		resp.WriteEntity(all[0])
 	} else {

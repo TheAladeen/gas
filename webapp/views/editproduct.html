@@ -1,15 +1,10 @@
-<div class="content-outer" data-ng-controller="ProductEditController" data-ng-init="get()">
+<div class="content-outer" data-ng-init="get()">
     <div id="page-content" class="row page">
         <div id="primary" class="eight columns">
             <div id="contact-form">
                 <form name="form" novalidate>
                     <fieldset>
                         <legend>Edit Product Details</legend>
-                        <div>
-                            <label for="inputName">Name</label>
-                            <input type="text" size="50" id="inputName" name="inputName" ng-model="data.Name" required />
-                        </div>
-
                         <div>
                             <label for="inputTitle">Title</label>
                             <input type="text" size="50" id="inputTitle" name="inputTitle" ng-model="data.Title" required />
@@ -34,12 +29,11 @@
                             <label for="inputSpec">Product Spec</label>
                             <textarea rows="15" cols="50"  id="inputSpec" name="inputSpec" ng-model="data.Spec" required ></textarea>
                         </div>
-                        
-                         <div>
+
+                        <div>
                             <label for="inputTaobaoUrl">Taobao</label>
                             <input type="text" size="50" id="inputTaobaoUrl" name="inputTaobaoUrl" ng-model="data.tburl" />
                         </div>
-                       
                         <div>
                             <label for="inputEbayUrl">Ebay </label>
                             <input type="text" class="form-control" id="inputEbayUrl" name="inputEbayUrl" ng-model="data.ebayurl" />
@@ -52,9 +46,8 @@
                             <label for="inputFbUrl">Facebook </label>
                             <input type="text" class="form-control" id="inputFbUrl" name="inputFbUrl" ng-model="data.fburl" />
                         </div>
-                        
                         <div>
-                            <button type="submit" class="btn" ng-disabled="form.$invalid" data-ng-click="update()">Submit</button>
+                            <button type="submit" class="btn" ng-disabled="form.$invalid" data-ng-click="save()">Submit</button>
                         </div>
                     </fieldset>
                 </form>
@@ -76,7 +69,7 @@
         		</div>
         		<button type="button" class="btn"  ng-click="jumptoupload()">Upload More Photos</button>
         	</aside>
-        </div>  
+        </div>
     </div>
 </div>
 

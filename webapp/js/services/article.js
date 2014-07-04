@@ -1,6 +1,6 @@
 angular.module('featen.article').factory("Articles", ['$http', 'Alerts', function($http, Alerts) {
-        this.get= function(name, scall, ecall) {
-            var promise = $http.get("/service/article/" + name);
+        this.get= function(id, scall, ecall) {
+            var promise = $http.get("/service/article/" + id);
             var error = {
                 type: "warning",
                 strong: "Warning!",

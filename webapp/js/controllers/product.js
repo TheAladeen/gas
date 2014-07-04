@@ -1,14 +1,14 @@
 angular.module('featen.product').controller('ProductsController', ['$scope', '$routeParams', '$location', 'Global', 'Products', function ($scope, $routeParams, $location, Global, Products) {
-    
+
     $scope.searchtext = "";
     $scope.searchcount = {};
     $scope.currPage = 1;
     $scope.totalPageNumber = 1;
-    
+
     $scope.search = function() {
     	$scope.currPage = 1;
     	var t = $scope.searchtext;
-    	if ($scope.searchtext.length == 0) 
+    	if ($scope.searchtext.length == 0)
     		t = " ";
     	Products.searchcount(t, function(sc) {
     		$scope.searchcount = sc;
@@ -21,10 +21,10 @@ angular.module('featen.product').controller('ProductsController', ['$scope', '$r
             });
     	});
     };
-    
+
     $scope.setpage = function(n) {
     	var t = $scope.searchtext;
-    	if ($scope.searchtext.length == 0) 
+    	if ($scope.searchtext.length == 0)
     		t = " ";
     	Products.search(t, n, function(cs) {
         	$scope.currPage = n;
@@ -38,7 +38,7 @@ angular.module('featen.product').controller('ProductsController', ['$scope', '$r
 
 angular.module('featen.product').controller('ProductEditController', ['$scope', '$routeParams', '$location', 'Global','StageData','Products', function ($scope, $routeParams, $location, Global,StageData, Products) {
     $scope.data = {};
-    var name = $routeParams.Name;
+    var id = $routeParams.id;
     var savedDataId = $routeParams.SavedDataId;
     var uploadedUrlsId = $routeParams.UploadedUrls;
 
@@ -46,13 +46,13 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
         if (savedDataId !== undefined && savedDataId !== '') {
             var stagedata = StageData.get(savedDataId);
             if (stagedata !== undefined) {
-                $scope.data = stagedata;
+				$scope.id = stagedata.id
+                $scope.data = stagedata.info;
                 StageData.del(savedDataId);
             } else {
-                Products.get(name, function(p) {
+                Products.get(id , function(p) {
                     $scope.id = p.Id;
                     $scope.data = JSON.parse(p.Info);
- //                   $scope.data.Info = JSON.parse($scope.data.Info);
                 });
             }
             if (uploadedUrlsId !== undefined && uploadedUrlsId !== '') {
@@ -61,16 +61,15 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
                 StageData.Del(uploadedUrlsId);
             }
         } else {
-                Products.get(name, function(p) {
+                Products.get(id , function(p) {
                     $scope.id = p.Id;
                     $scope.data = JSON.parse(p.Info);
-//                    $scope.data.Info = JSON.parse($scope.data.Info);
                 });
-        } 
+        }
     };
 
 
-    $scope.update = function() {
+    $scope.save = function() {
         var price = parseFloat($scope.data.Price);
         var discount = parseFloat($scope.data.Discount);
         $scope.data.Price = price;
@@ -82,7 +81,7 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
     };
 
     $scope.jumptoupload = function() {
-        var stageDataId = StageData.add($scope.data);
+        var stageDataId = StageData.add({id:$scope.id,info:$scope.data});
         var r = $location.path().split("/");
         var redirecturl = "/" + r[1] + "/"+ r[2] + "/savedid/" + stageDataId;
         $location.path('/uploadfile/redirect/'+Base64.encode(redirecturl));
@@ -91,10 +90,11 @@ angular.module('featen.product').controller('ProductEditController', ['$scope', 
 
 angular.module('featen.product').controller('ProductAddController', ['$scope', '$routeParams', '$location', 'Global','StageData','Products', function ($scope, $routeParams, $location, Global,StageData, Products) {
     $scope.data = {};
-	
+
+
     var savedDataId = $routeParams.SavedDataId;
     var uploadedUrlsId = $routeParams.UploadedUrls;
-    $scope.getNewProduct = function() {
+    $scope.get = function() {
         if (savedDataId !== undefined && savedDataId !== '') {
             var stagedata = StageData.get(savedDataId);
             if (stagedata !== undefined) {
@@ -109,11 +109,11 @@ angular.module('featen.product').controller('ProductAddController', ['$scope', '
                 $scope.data.CoverPhoto = $scope.data.Photos[0];
                 StageData.del(uploadedUrlsId);
             }
-        } 
+        }
     };
 
 
-    $scope.add= function() {
+    $scope.save= function() {
         var price = parseFloat($scope.data.Price);
         var discount = parseFloat($scope.data.Discount);
         $scope.data.Price = price;

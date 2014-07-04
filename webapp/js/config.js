@@ -2,13 +2,13 @@
 window.app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-                when('/blog/:Nav', {
+                when('/blog/:id', {
                     templateUrl: '/views/viewblog.html'
                 }).
                 when('/page/:PageNum', {
                 	templateUrl: '/views/page.html'
                 }).
-                when('/deal/:Name', {
+                when('/deal/:id', {
                     templateUrl: '/views/deal.html'
                 }).
                 when('/', {
@@ -20,9 +20,3 @@ window.app.config(['$routeProvider',
     }
 ]);
 
-//Setting HTML5 Location Mode
-window.app.config(['$locationProvider',
-    function($locationProvider) {
-        $locationProvider.hashPrefix("!");
-    }
-]);

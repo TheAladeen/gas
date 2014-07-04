@@ -6,9 +6,9 @@
 					<div class="widget widget_search">
 						<form>
 							<input class="text-search" type="text" data-ng-model="searchtext"
-								onfocus="if (this.value == 'Search customer here...') { this.value = ''; }"
-								onblur="if(this.value == '') { this.value = 'Search customer here...'; }"
-								value="Search customer here..."> 
+								onfocus="if (this.value == 'Search product here...') { this.value = ''; }"
+								onblur="if(this.value == '') { this.value = 'Search product here...'; }"
+								value="Search product here..."> 
 							<input type="submit"
 								class="submit-search" value="" data-ng-click="search()">
 						</form>
@@ -22,11 +22,11 @@
 				<div class="twelve columns">
 					<div data-ng-repeat="p in products">
 						<div class="four columns">
-							<a href="#!/product/{{p.Info.Name}}"><img class="img-responsive"
+							<a href="#/product/{{p.Id}}"><img class="img-responsive"
 								data-ng-src="{{p.Info.CoverPhoto}}"></img></a>
 						</div>
 						<div class="four columns">
-							<a href="#!/product/{{p.Info.Name}}">{{p.Info.Title}}</a>
+							<a href="#/product/{{p.Id}}">{{p.Info.Title}}</a>
 						</div>
 						
 						<div class="two columns">

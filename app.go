@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/featen/ags/service"
-	"github.com/featen/ags/service/config"
-	log "github.com/featen/utils/log"
 	"net/http"
 	"os"
 	"os/signal"
 	"path"
 	"strings"
 	"syscall"
+
+	"github.com/featen/ags/service"
+	"github.com/featen/ags/service/config"
+	log "github.com/featen/utils/log"
 )
 
 const (
@@ -23,7 +24,6 @@ var (
 )
 
 func staticFileshandler(res http.ResponseWriter, req *http.Request) {
-	//fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
 	if req.Method != "GET" && req.Method != "HEAD" {
 		return
 	}
