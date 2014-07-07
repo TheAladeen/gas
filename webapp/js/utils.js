@@ -1,10 +1,19 @@
-angular.module('featen.system').factory("Alerts", ['$rootScope', function($rootScope) {
+utils = angular.module('utils');
+
+utils.factory("Global", [function() {
+        var _this = this;
+        _this._data = {
+            user: window.adminuser,
+            authenticated: !!window.adminuser,
+        };
+
+        return _this._data;
+}]);
+
+utils.factory("Alerts", ['$rootScope', function($rootScope) {
         this.alerts = [];
         var self = this;
 
-        // add places a new alert at the top of the list of alerts. A
-        // timeout is made that removes the alert after 15 seconds has
-        // expired.
         this.add = function(type, strong, message) {
             this.alerts.unshift({
                 type: type,
@@ -16,18 +25,10 @@ angular.module('featen.system').factory("Alerts", ['$rootScope', function($rootS
             }, 5000);
         };
 
-        // remove gets rid of the specified alert.
         this.remove = function(index) {
             this.alerts.splice(index, 1);
         };
 
-        // handle is a helper function for REST calls. The given promise
-        // will have a success and error function added to it. Should the
-        // call succeed, the success alert will be added and the scall
-        // function will be called with the data, statue, headers, and
-        // config. Should the call fail, the error alert will be
-        // added and the ecall function will be called with the data,
-        // statue, headers, and config.
         this.handle = function(promise, error, success, scall, ecall) {
             promise
                     .success(function(data, status, headers, config) {
@@ -52,5 +53,43 @@ angular.module('featen.system').factory("Alerts", ['$rootScope', function($rootS
                     });
         };
         return this;
-    }]);
+}]);
 
+utils.factory("StageData", [function() {
+
+        // for ProductAddController
+        var StageData = [];
+        var currIndex = 0;
+        this.get = function(id) {
+            var data;
+            angular.forEach(StageData, function(d) {
+                if (d.id === parseInt(id))
+                    data = d.data;
+            });
+            return data;
+        };
+        this.add = function(adddata) {
+            var i = currIndex++;
+            StageData.push({id: i, data: adddata});
+            return i;
+        };
+        this.del = function(id) {
+            var oldStageData = StageData;
+            StageData = [];
+            angular.forEach(oldStageData, function(d) {
+                if (d.id !== parseInt(id))
+                    StageData.push(d);
+            });
+        };
+        
+        return this;
+}]);
+
+
+utils.controller("AlertController", ['$scope', "Alerts", function($scope, Alerts) {
+		$scope.alerts = Alerts.alerts;
+		
+		$scope.remove = function(index) {
+				Alerts.remove(index);
+		};
+}]);

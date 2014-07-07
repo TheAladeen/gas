@@ -1,15 +1,41 @@
-angular.module("featen.share").controller("DropboxUploadController", ["$scope", "$rootScope", "$route", "$routeParams", "$location", "Global", "StageData", "Shares", "Alerts", function($scope, $rootScope, $route, $routeParams, $location, Global, StageData, Shares, Alerts) {
+share = angular.module('share');
+
+share.factory("Shares", ['$http', 'Alerts', function($http, Alerts) {
+        this.uploadPhoto = function(data, scall, ecall) {
+                var xhr = new XMLHttpRequest();
+                xhr.addEventListener("load", scall, false);
+                xhr.addEventListener("error", ecall, false);
+                xhr.open("POST", "/service/uploadphoto");
+                var r = xhr.send(data);
+                return r;
+            
+            var error = {
+                type: "error",
+                strong: "Failed!",
+                message: "Cannot upload right now"
+            };
+            var success = {
+                type: "success",
+                strong: "Success!",
+                message: "Upload success..."
+            };
+        };
+
+        return this;
+    }]);
+
+share.controller("DropboxUploadController", ["$scope", "$rootScope", "$route", "$routeParams", "$location", "Global", "StageData", "Shares", "Alerts", function($scope, $rootScope, $route, $routeParams, $location, Global, StageData, Shares, Alerts) {
         var redirectUrl = $routeParams.ReUrl;
 
         var dropbox = document.getElementById("dropbox");
-        $scope.dropText = '将文件拉拽到这个地方...';
+        $scope.dropText = 'Drag your files to here...';
 
         // init event handlers
         function dragEnterLeave(evt) {
             evt.stopPropagation();
             evt.preventDefault();
             $scope.$apply(function() {
-                $scope.dropText = '将文件拉拽到这个地方...';
+                $scope.dropText = 'Drag your files to here...';
                 $scope.dropClass = '';
             });
         }
@@ -21,7 +47,7 @@ angular.module("featen.share").controller("DropboxUploadController", ["$scope", 
             var clazz = 'not-available';
             var ok = evt.dataTransfer && evt.dataTransfer.types && evt.dataTransfer.types.indexOf('Files') >= 0;
             $scope.$apply(function() {
-                $scope.dropText = ok ? '将文件拉拽到这个地方...' : '只支持文件';
+                $scope.dropText = ok ? 'Drag your files to here...' : 'files only';
                 $scope.dropClass = ok ? 'over' : 'not-available';
             });
         }, false);
@@ -30,7 +56,7 @@ angular.module("featen.share").controller("DropboxUploadController", ["$scope", 
             evt.stopPropagation();
             evt.preventDefault();
             $scope.$apply(function() {
-                $scope.dropText = '将文件拉拽到这个地方...';
+                $scope.dropText = 'Drag your files to here...';
                 $scope.dropClass = '';
             });
             var files = evt.dataTransfer.files;
@@ -106,6 +132,7 @@ angular.module("featen.share").controller("DropboxUploadController", ["$scope", 
             $scope.$apply(function() {
                 $scope.progressVisible = false;
             });
-            Alerts.add("error", "Canceled!", "上传取消...");
+            Alerts.add("error", "Canceled!", "Upload canceled...");
         }
     }]);
+

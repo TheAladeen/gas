@@ -1,9 +1,5 @@
-<!doctype html>
-<!--[if lt IE 8 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 8)|!(IE)]><!-->
-<html lang="en">
-<!--<![endif]-->
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <title>featen</title>
@@ -15,13 +11,6 @@
 <link rel="stylesheet" href="/sparrow/css/layout.css">
 <link rel="stylesheet" href="/sparrow/css/media-queries.css">
 <link rel="stylesheet" href="/sparrow/css/ags.css">
-
-<script type="text/javascript" src="/sparrow/js/modernizr.js"></script>
-<script type="text/javascript" src="/lib/angular-1.2.1.js"></script>
-<script type="text/javascript" src="/lib/angular-route-1.2.1.js"></script>
-<script type="text/javascript" src="/lib/angular-resource-1.2.1.js"></script>
-<script type="text/javascript" src="/lib/angular-cookies-1.2.1.js"></script>
-
 
 
 <link rel="shortcut icon" href="favicon.png">
@@ -36,7 +25,7 @@
 		<div class="row">
 			<div class="twelve columns">
 				<div class="logo">
-					<a data-ng-href="#/"><font size="32" color="white">featen</font></a>
+					<a data-ng-href="/"><font size="32" color="white">featen</font></a>
 				</div>
 			</div>
 		</div>
@@ -45,7 +34,7 @@
 
 	<div data-ng-view></div>
 
-	<div class="alert-container alert-bottom-right" data-ng-controller="AlertsCtrl">
+	<div class="alert-container alert-bottom-right" data-ng-controller="AlertController">
 		<div data-ng-repeat="alert in alerts" class="alert"
 			data-ng-class="{'alert-warning': alert.type == 'warning',
 	                               'alert-success': alert.type == 'success',
@@ -83,48 +72,36 @@
 
 	<a href="https://github.com/featen/ags"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
-	<!--
-	<script type="text/javascript" src="/lib/jquery-2.0.3.js"></script>
-	<script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="/sparrow/js/jquery-1.10.2.min.js"><\/script>')</script>
+<script type="text/javascript" src="/sparrow/js/modernizr.js"></script>
+<script type="text/javascript" src="/lib/angular-1.2.1.js"></script>
+<script type="text/javascript" src="/lib/angular-route-1.2.1.js"></script>
+
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="/sparrow/js/jquery-migrate-1.2.1.min.js"></script>
+
+
+	<!-- base64 -->
+	<script src="/lib/base64.js"></script>
+
+	<!-- Markdown  -->
+	<script defer type="text/javascript" src="/lib/marked.js"></script>
+
+	<!-- APP JS -->
+	<script type="text/javascript" src="/js/front/app.js"></script>
+	<script type="text/javascript" src="/js/front/config.js"></script>
+
+    <!-- Service & Controller JS -->
+    <script type="text/javascript" src="/js/utils.js"></script>
+    <script type="text/javascript" src="/js/front/front.js"></script>
+
+
+    <script type="text/javascript" src="/js/init.js"></script>
+
 
 	<!-- template js -->
 	<script src="/sparrow/js/jquery.flexslider.js"></script>
 	<script src="/sparrow/js/doubletaptogo.js"></script>
 	<script src="/sparrow/js/init.js"></script>
-
-	<!-- jquery data table -->
-	<script src="/lib/jquery.dataTables.js"></script>
-	<script src="/lib/jquery.dataTables.bootstrap.js"></script>
-
-	<!-- base64 -->
-	<script src="/lib/base64.js"></script>
-
-	<!-- nvd3 -->
-	<script defer type="text/javascript" src="/lib/nvd3/d3.v3.js"></script>
-
-	<!-- APP JS -->
-	<script type="text/javascript" src="/js/app.js"></script>
-	<script type="text/javascript" src="/js/filters.js"></script>
-	<script type="text/javascript" src="/js/directives.js"></script>
-	<script type="text/javascript" src="/js/config.js"></script>
-
-	<script type="text/javascript" src="/js/services/global.js"></script>
-	<script type="text/javascript" src="/js/services/alerts.js"></script>
-	<script type="text/javascript" src="/js/services/article.js"></script>
-	<script type="text/javascript" src="/js/services/product.js"></script>
-    <script type="text/javascript" src="/js/services/dict.js"></script>
-
-	<script type="text/javascript" src="/js/controllers/alerts.js"></script>
-    <script type="text/javascript" src="/js/controllers/front.js"></script>
-
-
-	<script type="text/javascript" src="/js/init.js"></script>
-
-	<!-- Markdown  -->
-	<script defer type="text/javascript" src="/lib/marked.js"></script>
 </body>
 </html>

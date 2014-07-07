@@ -40,7 +40,8 @@ func staticFileshandler(res http.ResponseWriter, req *http.Request) {
 
 	f, err := staticDir.Open(file)
 	if err != nil {
-		http.NotFound(res, req)
+		//http.NotFound(res, req)
+		http.Redirect(res, req, "/#/"+req.URL.Path, http.StatusFound)
 		return
 	}
 	defer f.Close()

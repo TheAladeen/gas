@@ -5,7 +5,7 @@
     			<div class="entry-header cf">
     				 <h1 data-ng-bind="info.Title"></h1>
     				 <p class="post-meta">
-    				 	<time class="date" >{{info.CreateTime}}</time>
+    				 	<time class="date" >{{info.CreateTime | date:'medium'}}</time>
     				 </p>
     			</div>
     			<div class="post-thumb">
@@ -23,8 +23,8 @@
 						data-ng-repeat="deal in deals">
 						<div class="columns portfolio-item">
 							<div class="item-wrap">
-								<a href="#/deal/{{deal.Id}}"> <img
-									alt="{{deal.Info.Title}}" data-ng-src="{{deal.CoverPhoto}}">
+								<a href="/#/deal/{{deal.Id}}"> <img
+									alt="{{deal.Info.Title}}" data-ng-src="{{deal.Info.CoverPhoto}}">
 									<div class="overlay"></div>
 									<div class="link-icon">
 										<i class="fa fa-link"></i>
@@ -32,7 +32,7 @@
 								</a>
 								<div class="portfolio-item-meta">
 									<h5>
-										<a href="#/deal/{{deal.Id}}">{{deal.Info.Title}}</a>
+										<a href="/#/deal/{{deal.Id}}">{{deal.Info.Title}}</a>
 									</h5>
 									<p><del>${{deal.Info.Price + deal.Info.Discount}}</del>   ${{deal.Info.Price}}</p>
 								</div>

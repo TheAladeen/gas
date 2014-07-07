@@ -1,8 +1,9 @@
 package user
 
 import (
-	"github.com/featen/ags/service/config"
 	"net/http"
+
+	"github.com/featen/ags/service/config"
 
 	"github.com/emicklei/go-restful"
 	"github.com/featen/ags/service/auth"
@@ -32,7 +33,7 @@ func Register() {
 }
 
 func currUser(req *restful.Request, resp *restful.Response) {
-	resp.WriteEntity(config.GetValue("AdminName"))
+	resp.WriteEntity(config.GetValue("AdminEmail"))
 }
 
 func checkAdminUser(vi *VerifyInfo) int {
@@ -51,7 +52,7 @@ func signin(req *restful.Request, resp *restful.Response) {
 	if err == nil {
 		if ret := checkAdminUser(vi); ret == http.StatusOK {
 			auth.AddCookie(req.Request, resp.ResponseWriter)
-			resp.WriteEntity(config.GetValue("AdminName"))
+			resp.WriteEntity(config.GetValue("AdminEmail"))
 		} else {
 			resp.WriteErrorString(ret, http.StatusText(ret))
 		}
