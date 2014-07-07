@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/emicklei/go-restful"
-	log "github.com/featen/utils/log"
+	log "github.com/featen/ags/utils/log"
 	_ "github.com/mattn/go-sqlite3"
 )
 
