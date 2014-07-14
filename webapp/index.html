@@ -1,59 +1,40 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <title>featen</title>
 <meta name="description" content="featen.com">
-<meta name="author" content="He JianJun">
+<meta name="author" content="He Jianjun">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-<link rel="stylesheet" href="/sparrow/css/default.css">
-<link rel="stylesheet" href="/sparrow/css/layout.css">
-<link rel="stylesheet" href="/sparrow/css/media-queries.css">
-<link rel="stylesheet" href="/sparrow/css/ags.css">
-
-
-<link rel="shortcut icon" href="favicon.png">
-<style>
-.ng-cloak {
-	display: none;
-}
-</style>
+<link rel="stylesheet" href="Ceevee10/css/default.css">
+<link rel="stylesheet" href="Ceevee10/css/layout.css">
+<link rel="stylesheet" href="Ceevee10/css/media-queries.css">
+<link rel="stylesheet" href="Ceevee10/css/magnific-popup.css">
+<script src="Ceevee10/js/modernizr.js"></script>
+<link rel="shortcut icon" href="favicon.png" >
 </head>
+
 <body>
-	<header>
-		<div class="row">
-			<div class="twelve columns">
-				<div class="logo">
-					<a data-ng-href="/"><font size="32" color="white">featen</font></a>
-				</div>
-			</div>
-		</div>
-	</header>
+   <header id="home">
+      <nav id="nav-wrap">
+        <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
+        <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
 
+         <ul id="nav" class="nav">
+            <li class="current"><a class="smoothscroll" href="#home">Home</a></li>
+            <li><a class="smoothscroll" href="#about">About</a></li>
+	        <li><a  href="/blogs">Blogs</a></li>
+         </ul> 
 
-	<div data-ng-view></div>
+      </nav> <!-- end #nav-wrap -->
 
-	<div class="alert-container alert-bottom-right" data-ng-controller="AlertController">
-		<div data-ng-repeat="alert in alerts" class="alert"
-			data-ng-class="{'alert-warning': alert.type == 'warning',
-	                               'alert-success': alert.type == 'success',
-	                               'alert-info': alert.type == 'info',
-	                               'alert-danger': alert.type == 'error'}">
-			<button type="button" class="close" data-dismiss="alert"
-				data-ng-click="remove($index)">&times;</button>
-			<i data-ng-class="{'fa fa-exclamation-triangle': alert.type == 'warning',
-	                                   'fa fa-thumbs-up': alert.type == 'success',
-	                                   'fa fa-info': alert.type == 'info',
-	                                   'fa fa-bolt': alert.type == 'error'}"></i>
-			<strong data-ng-bind="alert.strong"></strong> <span data-ng-bind="alert.message"></span>
-		</div>
-	</div>
-
-	<footer>
-      <div class="row">
-         <div class="twelve columns">
-            <ul class="footer-social">
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline">I'm featen.com</h1>
+            <hr />
+            <ul class="social">
                <li><a target="_blank" href="https://www.facebook.com/he.j.jun"><i class="fa fa-facebook"></i></a></li>
                <li><a target="_blank" href="https://twitter.com/featen_com"><i class="fa fa-twitter"></i></a></li>
                <li><a target="_blank" href="https://plus.google.com/+HeJianjun"><i class="fa fa-google-plus"></i></a></li>
@@ -61,47 +42,51 @@
                <li><a target="_blank" href="https://github.com/featen"><i class="fa fa-github"></i></a></li>
                <li><a target="_blank" href="http://www.weibo.com/featen"><i class="fa fa-weibo"></i></a></li>
             </ul>
-
-            <ul class="copyright">
-               <li>Copyright &copy; 2014 featen.    Template by <a href="http://www.styleshout.com">Styleshout</a></li>
-            </ul>
          </div>
-         <div id="go-top" style="display: block;"><a title="Back to Top" href="#">Go To Top</a></div>
       </div>
-	</footer>
 
-	<a href="https://github.com/featen/ags"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+      <p class="scrolldown">
+         <a class="smoothscroll" href="#about"><i class="icon-down-circle"></i></a>
+      </p>
 
-<script type="text/javascript" src="/sparrow/js/modernizr.js"></script>
-<script type="text/javascript" src="/lib/angular-1.2.1.js"></script>
-<script type="text/javascript" src="/lib/angular-route-1.2.1.js"></script>
-
-
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script type="text/javascript" src="/sparrow/js/jquery-migrate-1.2.1.min.js"></script>
+   </header> 
 
 
-	<!-- base64 -->
-	<script src="/lib/base64.js"></script>
+   <section id="about">
+      <div class="row">
+         <div class="three columns">
+            <img class="profile-pic"  src="Ceevee10/images/profilepic.jpg" alt="" />
+         </div>
+         <div class="nine columns main-col">
+            <h2>About Me</h2>
 
-	<!-- Markdown  -->
-	<script defer type="text/javascript" src="/lib/marked.js"></script>
+            <img src="images/resume.jpg"/>
+         </div>
+      </div>
+   </section> 
+   <footer>
+      <div class="row">
+         <div class="twelve columns">
+            <ul class="copyright">
+               <li>&copy; Copyright 2014 featen.com</li>
+               <li>Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a></li>   
+            </ul>
 
-	<!-- APP JS -->
-	<script type="text/javascript" src="/js/front/app.js"></script>
-	<script type="text/javascript" src="/js/front/config.js"></script>
+         </div>
+         <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
+      </div>
+   </footer> 
 
-    <!-- Service & Controller JS -->
-    <script type="text/javascript" src="/js/utils.js"></script>
-    <script type="text/javascript" src="/js/front/front.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script>window.jQuery || document.write('<script src="Ceevee10/js/jquery-1.10.2.min.js"><\/script>')</script>
+   <script type="text/javascript" src="Ceevee10/js/jquery-migrate-1.2.1.min.js"></script>
 
+   <script src="Ceevee10/js/jquery.flexslider.js"></script>
+   <script src="Ceevee10/js/waypoints.js"></script>
+   <script src="Ceevee10/js/jquery.fittext.js"></script>
+   <script src="Ceevee10/js/magnific-popup.js"></script>
+   <script src="Ceevee10/js/init.js"></script>
 
-    <script type="text/javascript" src="/js/init.js"></script>
-
-
-	<!-- template js -->
-	<script src="/sparrow/js/jquery.flexslider.js"></script>
-	<script src="/sparrow/js/doubletaptogo.js"></script>
-	<script src="/sparrow/js/init.js"></script>
 </body>
+
 </html>

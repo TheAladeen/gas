@@ -1,0 +1,57 @@
+
+
+<div data-ng-controller="PageController" data-ng-init="getPageArticles()">
+      <div class="row article" data-ng-repeat="article in articles">
+
+         <div class="three columns header-col">
+            <h2><span>{{article.Info.CreateTime | date:'medium'}}</span></h2>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h2><a href="#/blog/{{article.Id}}">{{article.Info.Title}}</a></h2>
+
+					<a href="#/blog/{{article.Id}}" title=""><img
+						ng-src="{{article.Info.CoverPhoto}}"></a>
+                  <p>{{article.Info.Intro}}
+                  </p>
+
+               </div>
+
+            </div> 
+
+         </div> 
+
+      </div> 
+			<nav class="col full pagination">
+				<ul>
+					<li><a ng-href="#/page/1" class="page-numbers prev">First</a></li>
+					<li ng-show="{{currPage - 1 >= 1}}"><a
+						ng-href="#/page/{{currPage-1}}" class="page-numbers prev">Prev</a></li>
+					<li ng-show="{{currPage - 2 >= 1}}"><a
+						ng-href="#/page/{{currPage-2}}" class="page-numbers">{{currPage
+							- 2}}</a></li>
+					<li ng-show="{{currPage - 1 >= 1}}"><a
+						ng-href="#/page/{{currPage-1}}" class="page-numbers">{{currPage
+							- 1}}</a></li>
+					<li><span class="page-numbers current">{{currPage}}</span></li>
+					<li ng-hide="totalPageNumber - currPage < 1"><a
+						ng-href="#/page/{{currPage+1}}" class="page-numbers">{{currPage
+							+ 1}}</a></li>
+					<li ng-hide="totalPageNumber - currPage < 2"><a
+						ng-href="#/page/{{currPage+2}}" class="page-numbers">{{currPage
+							+ 2}}</a></li>
+					<li ng-hide="totalPageNumber - currPage < 1"><a
+						ng-href="#/page/{{currPage+1}}" class="page-numbers next">Next</a></li>
+					<li><a ng-href="#/page/{{totalPageNumber}}"
+						class="page-numbers next">Last</a></li>
+				</ul>
+			</nav>
+		</div>
+
+	</div>
+</div>

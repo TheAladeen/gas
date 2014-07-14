@@ -1,0 +1,24 @@
+<div ng-controller="DictController">
+                <div class="row">
+                    <div class="widget widget_search">
+                        <form>
+                            <input class="text-search" type="text" data-ng-model="searchtext">
+                            <input type="submit"
+                                class="submit-search" value="" data-ng-click="query()">
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+            <article class="post">
+                <div class="entry-header cf">
+                     <h1 data-ng-bind="fanyi.query"></h1>
+                </div>
+                <div class="post-content">
+                        <span data-ng-hide="fanyi.basic.explains.length>0" data-ng-bind="fanyi.translation[0]"></span>
+                    <div data-ng-repeat="e in fanyi.basic.explains">
+                        <span>{{e}}</span>
+                    </div>
+                </div>
+            </article>
+                </div>
+        </div>

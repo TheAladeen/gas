@@ -3,7 +3,7 @@
     	<div id="primary" class="eight columns">
     		<article class="post">
     			<div class="entry-header cf">
-    				 <h1 data-ng-bind="info.Title"></h1>
+    				 <h2 data-ng-bind="info.Title"></h2>
     				 <p class="post-meta">
     				 	<time class="date" >{{info.CreateTime | date:'medium'}}</time>
     				 </p>
@@ -23,7 +23,7 @@
 						data-ng-repeat="deal in deals">
 						<div class="columns portfolio-item">
 							<div class="item-wrap">
-								<a href="/#/deal/{{deal.Id}}"> <img
+								<a href="#/deal/{{deal.Id}}"> <img
 									alt="{{deal.Info.Title}}" data-ng-src="{{deal.Info.CoverPhoto}}">
 									<div class="overlay"></div>
 									<div class="link-icon">
@@ -32,7 +32,7 @@
 								</a>
 								<div class="portfolio-item-meta">
 									<h5>
-										<a href="/#/deal/{{deal.Id}}">{{deal.Info.Title}}</a>
+										<a href="#/deal/{{deal.Id}}">{{deal.Info.Title}}</a>
 									</h5>
 									<p><del>${{deal.Info.Price + deal.Info.Discount}}</del>   ${{deal.Info.Price}}</p>
 								</div>
@@ -40,28 +40,6 @@
 						</div>
 					</div>
 				</div>
-                <div class="row">
-                    <div class="widget widget_search">
-                        <form>
-                            <input class="text-search" type="text" data-ng-model="searchtext">
-                            <input type="submit"
-                                class="submit-search" value="" data-ng-click="query()">
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-            <article class="post">
-                <div class="entry-header cf">
-                     <h1 data-ng-bind="fanyi.query"></h1>
-                </div>
-                <div class="post-content">
-                        <span data-ng-hide="fanyi.basic.explains.length>0" data-ng-bind="fanyi.translation[0]"></span>
-                    <div data-ng-repeat="e in fanyi.basic.explains">
-                        <span>{{e}}</span>
-                    </div>
-                </div>
-            </article>
-                </div>
 			</aside>
 		</div>
     </div>

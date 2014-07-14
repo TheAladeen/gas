@@ -106,16 +106,6 @@ front.controller('PageController', ['$scope', '$routeParams', '$location', 'Glob
 			$scope.articles = ps;
 		});
 	};
-        $scope.query = function() {
-            var q = $scope.searchtext;
-            if ($scope.searchtext.length == 0)
-                return;
-            Dict.query(q, function(r) {
-
-                $scope.fanyi = r;
-            });
-
-        };
 	
 }]);
 
@@ -175,6 +165,19 @@ front.controller('DealsController', ['$scope', '$routeParams', '$location', 'Glo
             $('#specs').html(htmlspec);
         });
     };
+}]);
+
+front.controller('DictController', ['$scope', 'Dict', function($scope, Dict){
+        $scope.query = function() {
+            var q = $scope.searchtext;
+            if ($scope.searchtext.length == 0)
+                return;
+            Dict.query(q, function(r) {
+
+                $scope.fanyi = r;
+            });
+
+        };
 }]);
 
 

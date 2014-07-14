@@ -24,7 +24,7 @@
                             <li><b><del>Listing Price: ${{deal.Info.Price + deal.Info.Discount}} </del></b></li>
                             <li><h3>Now:    <span style="color: red">${{deal.Info.Price}}</span></h3></li>
 
-							<li>
+							<li id="url">
 							<a class="button" target="_blank" data-ng-show="deal.Info.tburl.length>0" href="{{deal.Info.tburl}}">淘宝</a>
 							<a class="button" target="_blank" data-ng-show="deal.Info.ebayurl.length>0" href="{{deal.Info.ebayurl}}">ebay</a>
 							<a class="button" target="_blank" data-ng-show="deal.Info.wburl.length>0" href="{{deal.Info.wburl}}">微博</a>
