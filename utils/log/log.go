@@ -38,7 +38,7 @@ type logMsg struct {
 	msg   string
 }
 
-var std = NewLogger("data"+string(os.PathSeparator)+"ags.log", "", Ldate|Ltime)
+var std = NewLogger("data"+string(os.PathSeparator)+"gas.log", "", Ldate|Ltime)
 
 func NewLogger(filename string, prefix string, flag int) (newLogger *Logger) {
 	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)

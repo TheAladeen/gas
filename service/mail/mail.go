@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"net/smtp"
 
-	"github.com/featen/ags/service/config"
-	log "github.com/featen/ags/utils/log"
+	"github.com/featen/gas/service/config"
+	log "github.com/featen/gas/utils/log"
 )
 
 var auth smtp.Auth

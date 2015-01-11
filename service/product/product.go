@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/emicklei/go-restful"
-	"github.com/featen/ags/service/auth"
-	"github.com/featen/ags/service/config"
-	db "github.com/featen/ags/utils/db"
-	log "github.com/featen/ags/utils/log"
+	"github.com/featen/gas/service/auth"
+	"github.com/featen/gas/service/config"
+	db "github.com/featen/gas/utils/db"
+	log "github.com/featen/gas/utils/log"
 )
 
 type SearchCount struct {

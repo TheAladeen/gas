@@ -4,14 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/featen/ags/service/article"
-	"github.com/featen/ags/service/auth"
-	"github.com/featen/ags/service/config"
-	"github.com/featen/ags/service/dict"
-	"github.com/featen/ags/service/product"
-	"github.com/featen/ags/service/share"
-	"github.com/featen/ags/service/user"
-	log "github.com/featen/ags/utils/log"
+	"github.com/featen/gas/service/article"
+	"github.com/featen/gas/service/auth"
+	"github.com/featen/gas/service/config"
+	"github.com/featen/gas/service/dict"
+	"github.com/featen/gas/service/product"
+	"github.com/featen/gas/service/share"
+	"github.com/featen/gas/service/user"
+	log "github.com/featen/gas/utils/log"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -40,7 +40,7 @@ func createDb() {
 }
 
 func RegService() {
-	config.InitConfigs("data/ags.conf")
+	config.InitConfigs("data/config.js")
 	article.Init()
 	product.Init()
 
@@ -55,5 +55,5 @@ func RegService() {
 	article.Register()
 	share.Register()
 	product.Register()
-	dict.Register()
+	//dict.Register()
 }

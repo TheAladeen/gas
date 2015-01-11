@@ -3,11 +3,11 @@ package user
 import (
 	"net/http"
 
-	"github.com/featen/ags/service/config"
+	"github.com/featen/gas/service/config"
 
 	"github.com/emicklei/go-restful"
-	"github.com/featen/ags/service/auth"
-	log "github.com/featen/ags/utils/log"
+	"github.com/featen/gas/service/auth"
+	log "github.com/featen/gas/utils/log"
 )
 
 const timeLayout = "2006-01-02 3:04pm"

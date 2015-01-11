@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/featen/ags/service/auth"
-	log "github.com/featen/ags/utils/log"
+	"github.com/featen/gas/service/auth"
+	log "github.com/featen/gas/utils/log"
 )
 
 func Register() {
@@ -69,7 +69,7 @@ func uploadPhotoHandler(w http.ResponseWriter, r *http.Request) {
 			urls = append(urls, fileurl)
 		}
 
-		s, err := auth.CookieStore.Get(r, "ags-session")
+		s, err := auth.CookieStore.Get(r, "gas-session")
 		if err != nil {
 			w.WriteHeader(http.StatusNotAcceptable)
 			return

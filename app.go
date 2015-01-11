@@ -9,9 +9,9 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/featen/ags/service"
-	"github.com/featen/ags/service/config"
-	log "github.com/featen/ags/utils/log"
+	"github.com/featen/gas/service"
+	"github.com/featen/gas/service/config"
+	log "github.com/featen/gas/utils/log"
 )
 
 const (
@@ -109,7 +109,7 @@ func main() {
 	}
 
 	log.Info("start listening on %s", bind)
-	fmt.Println("ags server started on %s ", bind)
+	fmt.Println("gas server started on %s ", bind)
 
 	http.ListenAndServe(bind, nil)
 }

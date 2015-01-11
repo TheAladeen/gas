@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/emicklei/go-restful"
-	log "github.com/featen/ags/utils/log"
+	log "github.com/featen/gas/utils/log"
 	"github.com/gorilla/sessions"
 )
 
@@ -35,12 +35,12 @@ func AuthFilter(req *restful.Request, resp *restful.Response, chain *restful.Fil
 		resp.WriteErrorString(http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized))
 		return
 	}
-	req.SetAttribute("agsuserid", userid)
+	req.SetAttribute("gasuserid", userid)
 	chain.ProcessFilter(req, resp)
 }
 
 func AddCookie(req *http.Request, resp http.ResponseWriter) {
-	s, _ := CookieStore.Get(req, "ags-session")
+	s, _ := CookieStore.Get(req, "gas-session")
 	s.Options = &sessions.Options{
 		Path:   "/",
 		MaxAge: 0,
@@ -53,7 +53,7 @@ func AddCookie(req *http.Request, resp http.ResponseWriter) {
 }
 
 func DelCookie(req *restful.Request, resp *restful.Response) {
-	s, _ := CookieStore.Get(req.Request, "ags-session")
+	s, _ := CookieStore.Get(req.Request, "gas-session")
 
 	s.Values["id"] = ""
 	s.Values["time"] = ""
@@ -62,7 +62,7 @@ func DelCookie(req *restful.Request, resp *restful.Response) {
 }
 
 func authHandler(r *http.Request, w http.ResponseWriter) (bool, string) {
-	s, err := CookieStore.Get(r, "ags-session")
+	s, err := CookieStore.Get(r, "gas-session")
 	if err != nil {
 		log.Debug("Cannot get session: %v", err)
 		return false, ""
@@ -90,7 +90,7 @@ func check(id string, n string, magic string) bool {
 
 func genMagic(id string, n string) string {
 	h := md5.New()
-	io.WriteString(h, "ags-")
+	io.WriteString(h, "gas-")
 	io.WriteString(h, id)
 	io.WriteString(h, "-"+n)
 	return fmt.Sprintf("%x", h.Sum(nil))
