@@ -7,7 +7,6 @@ import (
 	"github.com/featen/gas/service/article"
 	"github.com/featen/gas/service/auth"
 	"github.com/featen/gas/service/config"
-	"github.com/featen/gas/service/dict"
 	"github.com/featen/gas/service/product"
 	"github.com/featen/gas/service/share"
 	"github.com/featen/gas/service/user"
